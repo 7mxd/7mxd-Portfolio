@@ -38,6 +38,18 @@ function initMobileNav(doc) {
   });
 }
 
+/** Say which edges of a swipeable link row hide more pills; the CSS fades them. */
+function markScrollRows(doc) {
+  for (const row of doc.querySelectorAll('.work-links')) {
+    const update = () => {
+      row.classList.toggle('more-start', row.scrollLeft > 1);
+      row.classList.toggle('more-end', row.scrollLeft < row.scrollWidth - row.clientWidth - 1);
+    };
+    row.addEventListener('scroll', update, { passive: true });
+    new ResizeObserver(update).observe(row);
+  }
+}
+
 async function boot() {
   initTheme(document, window.localStorage, window.matchMedia('(prefers-color-scheme: dark)'));
   trackKeyboardUse(document);
@@ -46,6 +58,7 @@ async function boot() {
   try {
     const data = await loadSiteData();
     renderAll(document, data, buildTimeline(data));
+    markScrollRows(document);
   } catch (error) {
     console.error(error);
     const main = document.getElementById('main');
