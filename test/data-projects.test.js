@@ -5,8 +5,9 @@ import { readFileSync } from 'node:fs';
 const data = JSON.parse(readFileSync(new URL('../data/projects.json', import.meta.url)));
 const ids = data.items.map((p) => p.id);
 
-test('selected work is the audit platform, HiSalon, Stmnt, and the kernel RLS research', () => {
-  assert.deepEqual(ids, ['saal-audit-platform', 'hisalon', 'stmnt', 'kernel-rls']);
+// Newest first, the order the timeline reads in.
+test('selected work runs newest first: HiSalon, Stmnt, the audit platform, the kernel RLS research', () => {
+  assert.deepEqual(ids, ['hisalon', 'stmnt', 'saal-audit-platform', 'kernel-rls']);
 });
 
 // HiSalon came back once the April 2026 CV named it; Wafa did not.

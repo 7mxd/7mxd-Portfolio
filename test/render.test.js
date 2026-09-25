@@ -211,9 +211,9 @@ test('a role links to the work it names, not to "this work"', () => {
   // work" claimed the whole block was the single project it opens.
   const { sections } = renderFixture();
   const html = sections.get('path').innerHTML;
-  assert.match(html, /<a href="#work-saal-audit-platform">Read more: [^<]+<\/a>/);
+  assert.match(html, /<a href="#work-saal-audit-platform"><svg[^>]*>.*?<\/svg><span>Read more: [^<]+<\/span><\/a>/);
   assert.equal(
-    /<a href="#work-saal-audit-platform">Read more about this work<\/a>/.test(html),
+    /<a href="#work-saal-audit-platform">(<svg[^>]*>.*?<\/svg>)?(<span>)?Read more about this work/.test(html),
     false,
     'the role still claims the whole block is one work',
   );
@@ -260,7 +260,7 @@ test('the Saal.ai role\'s read-more link targets #work-saal-audit-platform', () 
   // its own well before the entry element's closing tag.
   const nextEntry = html.indexOf('<li class="entry', idx + 1);
   const entryHtml = nextEntry === -1 ? html.slice(idx) : html.slice(idx, nextEntry);
-  assert.match(entryHtml, /<a href="#work-saal-audit-platform">Read more: [^<]+<\/a>/);
+  assert.match(entryHtml, /<a href="#work-saal-audit-platform"><svg[^>]*>.*?<\/svg><span>Read more: [^<]+<\/span><\/a>/);
 });
 
 test('every rendered photograph carries non-empty alt, width, height and decoding', () => {
@@ -491,4 +491,16 @@ test('About renders one paragraph per blank-line-separated block', () => {
   assert.ok(expected >= 2, 'the summary is still one undivided block');
   const about = renderFixture().sections.get('about').innerHTML;
   assert.equal((about.match(/<p class="prose">/g) || []).length, expected);
+});
+
+test('every link in a work row or a timeline row leads with an icon', () => {
+  const { sections } = renderFixture();
+  const html = sections.get('work').innerHTML + sections.get('path').innerHTML;
+  const rows = html.match(/<(ul|p) class="(work-links|entry-more)">[^]*?<\/\1>/g) ?? [];
+  assert.ok(rows.length >= 4, `expected link rows, found ${rows.length}`);
+  for (const row of rows) {
+    for (const a of row.match(/<a [^>]*>[^]*?<\/a>/g) ?? []) {
+      assert.match(a, /^<a [^>]*><svg/, `a link without an icon: ${a.replace(/<svg[^]*?<\/svg>/g, '')}`);
+    }
+  }
 });

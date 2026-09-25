@@ -1,53 +1,12 @@
 {
   "items": [
     {
-      "id": "saal-audit-platform",
-      "title": "Procurement audit platform",
-      "org": "Saal.ai",
-      "timeline": false,
-      "startDate": "2024-09",
-      "displayDate": "2024 — 2026",
-      "tags": [
-        "Python",
-        "Pandas",
-        "MongoDB",
-        "Azure Blob Storage",
-        "Docker",
-        "APScheduler",
-        "NLP",
-        "Dynamics 365"
-      ],
-      "blocks": [
-        {
-          "type": "description",
-          "content": "A platform that ingests Microsoft Dynamics 365 ERP data from Azure Blob Storage and audits it across procure-to-pay, vendor master data, and user access rights. I was its primary developer and wrote most of the exception logic it runs."
-        },
-        {
-          "type": "description",
-          "content": "I designed the Delegation of Authority control set, which traces ERP workflow records to flag purchases approved by the wrong person, or approved at fewer levels than company spending limits require. I also built controls over payments and vendor master data, extending the platform from the ERP to treasury payment exports."
-        },
-        {
-          "type": "description",
-          "content": "Duplicate detection is the interesting part. Line item descriptions are free text, so exact matching finds almost nothing. The pipeline combines fuzzy and Levenshtein similarity with a cross-encoder transformer model to surface near duplicates that a human reviewer would recognise but a string comparison would miss."
-        },
-        {
-          "type": "description",
-          "content": "I containerised the pipeline with Docker, scheduled it with APScheduler, scaled it to run over one business entity or all of them, and added automatic retry with backoff on Azure ingestion. On the client-facing dashboard I replaced a pop-up with a standalone, shareable exception page and added an info panel explaining each check."
-        },
-        {
-          "type": "callout",
-          "tone": "note",
-          "content": "This is client audit software, so there are no screenshots."
-        }
-      ]
-    },
-    {
       "id": "hisalon",
       "title": "HiSalon",
       "org": "Join Future",
       "timeline": false,
       "startDate": "2026-04",
-      "displayDate": "2026 — present",
+      "displayDate": "Apr 2026 — present",
       "tags": [
         "NestJS",
         "PostgreSQL",
@@ -156,6 +115,47 @@
         "Sole developer of an iOS app, published on the App Store, that reads bank statement PDFs from any bank and turns them into spending breakdowns, subscription tracking, and spending forecasts.",
         "Built the pipeline that pulls transactions out of unstructured PDF text with Google Gemini, then categorises them, removes duplicates, and flags unusual spending across more than 35 currencies.",
         "Developed the app in Flutter and Dart, working through an agent-driven workflow with Claude Code while owning the architecture and reviewing every change."
+      ]
+    },
+    {
+      "id": "saal-audit-platform",
+      "title": "Procurement audit platform",
+      "org": "Saal.ai",
+      "timeline": false,
+      "startDate": "2024-09",
+      "displayDate": "Sep 2024 — Sep 2026",
+      "tags": [
+        "Python",
+        "Pandas",
+        "MongoDB",
+        "Azure Blob Storage",
+        "Docker",
+        "APScheduler",
+        "NLP",
+        "Dynamics 365"
+      ],
+      "blocks": [
+        {
+          "type": "description",
+          "content": "A platform that ingests Microsoft Dynamics 365 ERP data from Azure Blob Storage and audits it across procure-to-pay, vendor master data, and user access rights. I was its primary developer and wrote most of the exception logic it runs."
+        },
+        {
+          "type": "description",
+          "content": "I designed the Delegation of Authority control set, which traces ERP workflow records to flag purchases approved by the wrong person, or approved at fewer levels than company spending limits require. I also built controls over payments and vendor master data, extending the platform from the ERP to treasury payment exports."
+        },
+        {
+          "type": "description",
+          "content": "Duplicate detection is the interesting part. Line item descriptions are free text, so exact matching finds almost nothing. The pipeline combines fuzzy and Levenshtein similarity with a cross-encoder transformer model to surface near duplicates that a human reviewer would recognise but a string comparison would miss."
+        },
+        {
+          "type": "description",
+          "content": "I containerised the pipeline with Docker, scheduled it with APScheduler, scaled it to run over one business entity or all of them, and added automatic retry with backoff on Azure ingestion. On the client-facing dashboard I replaced a pop-up with a standalone, shareable exception page and added an info panel explaining each check."
+        },
+        {
+          "type": "callout",
+          "tone": "note",
+          "content": "This is client audit software, so there are no screenshots."
+        }
       ]
     },
     {
