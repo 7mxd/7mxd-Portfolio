@@ -9,6 +9,14 @@
           "primary": true
         },
         {
+          "name": "TypeScript",
+          "primary": false
+        },
+        {
+          "name": "Dart",
+          "primary": false
+        },
+        {
           "name": "R",
           "primary": false
         },
@@ -23,7 +31,7 @@
       ]
     },
     {
-      "name": "Libraries",
+      "name": "Libraries and frameworks",
       "type": "tags",
       "items": [
         {
@@ -69,6 +77,18 @@
         {
           "name": "caret",
           "primary": false
+        },
+        {
+          "name": "NestJS",
+          "primary": false
+        },
+        {
+          "name": "React",
+          "primary": false
+        },
+        {
+          "name": "Flutter",
+          "primary": false
         }
       ]
     },
@@ -83,6 +103,10 @@
         {
           "name": "Azure Blob Storage",
           "primary": true
+        },
+        {
+          "name": "PostgreSQL",
+          "primary": false
         },
         {
           "name": "Studio 3T",
