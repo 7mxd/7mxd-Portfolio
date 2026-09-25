@@ -26,9 +26,11 @@ test('App Store links name no storefront', () => {
   for (const url of urls) assert.match(url, /^https:\/\/apps\.apple\.com\/app\//, url);
 });
 
-test('no forbidden Join-Future product names anywhere', () => {
+// HiPay and HiChat may be named since the April 2026 CV names them; see the
+// editorial-revamp decisions doc. The company domain and joinCX stay off.
+test('the Join Future domain and joinCX stay off', () => {
   const raw = JSON.stringify(data);
-  assert.equal(/HiPay|joinfuture\.ai|joinCX/i.test(raw), false);
+  assert.equal(/joinfuture\.ai|joinCX/i.test(raw), false);
 });
 
 test('the audit platform is excluded from the timeline, since the role represents it', () => {

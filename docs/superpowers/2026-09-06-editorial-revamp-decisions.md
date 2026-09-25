@@ -49,6 +49,11 @@ named it and the owner asked for it. It stays at CV level: what the product is,
 what Ahmed built, the stack, and its four public links. Nothing sourced from
 the private repo, and no screenshots until Join Future agrees.
 
+**Join Future's other products may be named, superseding the June rule.** The
+June spec kept everything but HiSalon unnamed because the CV left them out. The
+April 2026 CV names HiPay and HiChat as minor contributions beside the major one
+to HiSalon, and the site follows the CV. Private-repo detail still stays off.
+
 **The procurement audit platform was promoted from an experience bullet to a
 Selected Work entry.** An earlier draft truncated the Saal.ai role from ten CV
 bullets to four, discarding real evidence. Promoting the platform keeps every
