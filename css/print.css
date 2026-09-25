@@ -83,6 +83,7 @@ main { max-width: none; padding: 0; }
    orphaned line. */
 .work-title, .work-meta { break-after: avoid; }
 .work-links { break-inside: avoid; }
+.work-links { flex-wrap: wrap; overflow: visible; margin-inline: 0; padding: 0; }
 .work-links a { padding: 0; background: none; border: 0; }
 .work p, .block-text { orphans: 3; widows: 3; }
 
