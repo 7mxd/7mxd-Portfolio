@@ -66,6 +66,13 @@ const ICONS = {
   // link row. A handset beside the words "App Store" is unambiguous anyway.
   app: `<svg class="link-icon" ${STROKE}><rect x="6" y="2.5" width="12" height="19" rx="2.5"></rect>`
     + `<path d="M10.5 18.5h3"></path></svg>`,
+  doc: `<svg class="link-icon" ${STROKE}><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path>`
+    + `<path d="M14 3v5h5M9 13h6M9 17h6"></path></svg>`,
+  // A web app; the globe already means "website".
+  window: `<svg class="link-icon" ${STROKE}><rect x="3" y="4.5" width="18" height="15" rx="2"></rect>`
+    + `<path d="M3 9h18M6.5 6.75h.01M9 6.75h.01"></path></svg>`,
+  // A jump further down this page.
+  down: `<svg class="link-icon" ${STROKE}><path d="M12 4v15M6 13l6 6 6-6"></path></svg>`,
   // Marks a link that leaves the site. The page had no such signal, so "Verify"
   // (an issuer's page) looked identical to "Read more" (a jump further down the
   // same page).
@@ -84,6 +91,8 @@ function outboundIcon(href, kind) {
   if (/^https?:\/\/(www\.)?github\.com/i.test(url)) return ICONS.github;
   if (/^mailto:/i.test(url)) return ICONS.mail;
   if (/^https?:\/\/(apps\.apple\.com|play\.google\.com)\//i.test(url)) return ICONS.app;
+  if (/\.pdf$/i.test(url)) return ICONS.doc;
+  if (url.startsWith('#')) return ICONS.down;
   return /^https?:/i.test(url) ? ICONS.external : '';
 }
 
@@ -272,7 +281,7 @@ function entryMarkup(entry) {
     const label = entry.workRefTitle
       ? `Read more: ${escapeHtml(entry.workRefTitle)}`
       : 'Read more about this work';
-    links.push(`<a href="#work-${escapeHtml(entry.workRef)}">${label}</a>`);
+    links.push(`<a href="#work-${escapeHtml(entry.workRef)}">${ICONS.down}<span>${label}</span></a>`);
   } else if (entry.link) {
     links.push(`<a href="${escapeHtml(entry.link.url)}" rel="noopener">${outboundIcon(entry.link.url)}<span>${escapeHtml(entry.link.label)}</span></a>`);
   }
@@ -351,15 +360,18 @@ function workMarkup(project) {
     ? `<p class="work-tags">${project.tags.map((t) => `<span>${escapeHtml(t)}</span>`).join('')}</p>`
     : '';
 
-  const named = [['ios', 'App Store', 'app'], ['webapp', 'Website', 'globe'], ['github', 'GitHub', null]];
+  // One order everywhere. Every pill leads with a mark; an unknown web address
+  // is a web app, so it gets the window rather than the outbound arrow.
+  const named = [['webapp', 'Website', 'globe'], ['ios', 'App Store', 'app'], ['github', 'GitHub', null]];
   const links = [];
   for (const [key, label, kind] of named) {
     if (project.links?.[key]) links.push(iconLink(project.links[key], label, kind));
   }
   for (const extra of project.links?.extra ?? []) {
-    links.push(`<a href="${escapeHtml(extra.url)}">${outboundIcon(extra.url)}<span>${escapeHtml(extra.label)}</span></a>`);
+    const icon = outboundIcon(extra.url);
+    links.push(iconLink(extra.url, extra.label, icon === ICONS.external ? 'window' : null));
   }
-  const linkRow = links.length ? `<p class="work-links">${links.join('')}</p>` : '';
+  const linkRow = links.length ? `<ul class="work-links">${links.map((a) => `<li>${a}</li>`).join('')}</ul>` : '';
 
   const org = project.org ? `<span class="work-org">${escapeHtml(project.org)}</span>` : '';
   const dates = project.displayDate ? `<span class="work-dates">${escapeHtml(project.displayDate)}</span>` : '';
@@ -367,9 +379,10 @@ function workMarkup(project) {
   return `<article class="work" id="work-${escapeHtml(project.id)}">
 <h3 class="work-title">${escapeHtml(project.title)}</h3>
 <p class="work-meta">${org}${dates}</p>
+${linkRow}
 ${renderBlocks(project.blocks)}
 ${gallery(project.images, 'work')}
-${tags}${linkRow}
+${tags}
 </article>`;
 }
 

@@ -644,7 +644,22 @@
   border: var(--rule-width) solid var(--rule);
   color: var(--ink-muted);
 }
-.work-links { font-size: var(--text-sm); gap: var(--space-4); }
+
+/* Link pills: raised, and underlined, so they never read as the hero's labels. */
+.work-links {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-4);
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+}
+.work-links a {
+  padding: 0.3em 0.8em;
+  background: var(--raised);
+  border: var(--rule-width) solid var(--rule-accent);
+  border-radius: 999px;
+}
+.work-links a:hover { border-color: var(--accent); }
 
 /* Skills */
 
