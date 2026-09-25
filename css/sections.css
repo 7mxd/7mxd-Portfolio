@@ -660,6 +660,20 @@
   border-radius: 999px;
 }
 .work-links a:hover { border-color: var(--accent); }
+/* Phones: one swipeable row, bled to the edge so a cut pill says there is more. */
+@media (max-width: 40rem) {
+  .work-links {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: var(--space-1) var(--gutter);
+    scroll-padding-inline: var(--gutter);
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+  .work-links::-webkit-scrollbar { display: none; }
+  .work-links li { flex: none; scroll-snap-align: start; }
+}
 
 /* Skills */
 

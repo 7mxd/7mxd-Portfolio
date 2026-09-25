@@ -12,7 +12,9 @@ function filesIn(dir, extension) {
   if (!existsSync(path)) return [];
   return readdirSync(path)
     .filter((f) => f.endsWith(extension))
-    .map((f) => readFileSync(`${path}/${f}`));
+    // As git stores and Vercel serves them. A Windows checkout with autocrlf
+    // adds a CR per line, which put unchanged code over the ceiling here.
+    .map((f) => Buffer.from(readFileSync(`${path}/${f}`, 'utf8').replace(/\r\n/g, '\n')));
 }
 
 const assets = [...filesIn('css', '.css'), ...filesIn('js', '.js')];
