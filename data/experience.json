@@ -41,6 +41,25 @@
       ]
     },
     {
+      "company": "Join Future W.L.L.",
+      "location": "Bahrain, remote",
+      "roles": [
+        {
+          "id": "join-future-full-stack",
+          "title": "Freelance — Full Stack Developer",
+          "startDate": "2026-04",
+          "endDate": "Present",
+          "displayDate": "Apr 2026 — present",
+          "bullets": [
+            "Main contributor to HiSalon, the company's multi-tenant salon management SaaS, and a contributor to HiPay and HiChat, with most of the work done through an agent-driven workflow with Claude Code.",
+            "On HiSalon, built HR and payroll, gift cards, loyalty, offers, and a digital contract-signing flow across a NestJS and PostgreSQL backend, a React dashboard, and two Flutter apps.",
+            "On HiPay, a payment gateway, fixed the checkout and SDK for Apple Pay, BENEFIT, and Flooss.",
+            "On HiChat, a customer experience platform, fixed WhatsApp campaigns and phone number handling, and let agents reopen expired chats with approved templates."
+          ]
+        }
+      ]
+    },
+    {
       "company": "Daman, National Health Insurance Company",
       "location": "Abu Dhabi, UAE",
       "logo": {

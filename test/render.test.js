@@ -110,8 +110,9 @@ test('every entry is a stop on the rail, under a year station', () => {
   const entries = html.match(/<li class="entry is-[a-z]+">/g) || [];
   // 17: the two Dataiku certificates were one merged entry until each got its
   // own verification page, and Dean's List was one entry carrying two semesters
-  // with a badge that contradicted its own first line.
-  assert.equal(entries.length, 17);
+  // with a badge that contradicted its own first line. 18 since the Join Future
+  // freelance role.
+  assert.equal(entries.length, 18);
 
   // Two sizes of station: a year opens each run, and each entry marks its month
   // underneath. Every entry must hold that column either way, or its grid row
