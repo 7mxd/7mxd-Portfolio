@@ -17,12 +17,9 @@
           "displayDate": "Sep 2024 — Sep 2026",
           "workRef": "saal-audit-platform",
           "bullets": [
-            "Primary developer of a procurement audit platform that ingests Microsoft Dynamics 365 ERP data from Azure Blob Storage, authoring 28 of its 38 exception checks.",
-            "Applied NLP-based matching within the pipeline, combining fuzzy and Levenshtein similarity with a cross-encoder transformer model to flag near-duplicate line item descriptions.",
-            "Containerised the pipeline with Docker, scheduled it with APScheduler, and added automatic retry with backoff on Azure ingestion.",
-            "On a separate project, developed ETL pipelines in a microservices architecture using Python, Pandas and MongoDB, working with the team through GitHub.",
-            "Built interactive Power BI and Tableau dashboards for proof-of-concept projects.",
-            "Designed ER diagrams, authored technical documentation for multiple use cases, and supported client teams in resolving data availability and update issues."
+            "Primary developer of a procurement audit platform on Microsoft Dynamics 365 ERP data, authoring 28 of its 38 exception checks across procure-to-pay, vendor master data, and access rights.",
+            "Flagged near-duplicate line items by pairing fuzzy and Levenshtein similarity with a cross-encoder NLP model, and containerised and scheduled the pipeline with Docker and APScheduler.",
+            "On other projects, developed ETL pipelines and Power BI and Tableau dashboards, designed ER diagrams, authored technical documentation, and supported client teams in resolving data issues."
           ]
         },
         {
@@ -32,10 +29,9 @@
           "endDate": "2024-09",
           "displayDate": "Mar 2024 — Sep 2024",
           "bullets": [
-            "Developed skills in NoSQL databases with MongoDB and PyMongo, and built a REST API with Flask, validated using Postman and documented with Swagger UI.",
-            "Completed the Dataiku Core Designer and ML Practitioner certifications, applying both to design a data processing flow.",
+            "Worked with MongoDB and PyMongo, and built a REST API with Flask, validated using Postman and documented with Swagger UI.",
             "Applied Python and Pandas for data cleaning, transformation, and feature engineering, including a pipeline that improved predictive workflows within a microservices framework.",
-            "Collaborated with the UI/UX and frontend teams to design and deliver a dashboard, progressing from wireframe to production."
+            "Collaborated with UI/UX and frontend teams to take a dashboard from wireframe to production."
           ]
         }
       ]
@@ -51,7 +47,7 @@
           "endDate": "Present",
           "displayDate": "Apr 2026 — present",
           "bullets": [
-            "Main contributor to HiSalon, the company's multi-tenant salon management SaaS, and a contributor to HiPay and HiChat, with most of the work done through an agent-driven workflow with Claude Code.",
+            "Main contributor to HiSalon, the company's multi-tenant salon management SaaS, and contributed to HiPay and HiChat, mostly through an agent-driven workflow with Claude Code.",
             "On HiSalon, built HR and payroll, gift cards, loyalty, offers, and a digital contract-signing flow across a NestJS and PostgreSQL backend, a React dashboard, and two Flutter apps.",
             "On HiPay, a payment gateway, fixed the checkout and SDK for Apple Pay, BENEFIT, and Flooss.",
             "On HiChat, a customer experience platform, fixed WhatsApp campaigns and phone number handling, and let agents reopen expired chats with approved templates."
@@ -74,7 +70,7 @@
           "displayDate": "Jul 2022 — Sep 2022",
           "bullets": [
             "Performed data analysis, visualisation, and reporting in Microsoft Power BI to support business intelligence initiatives.",
-            "Built dashboards highlighting key performance metrics, cost drivers, and trends."
+            "Built dashboards to highlight key performance metrics, cost drivers, and trends."
           ]
         }
       ]
