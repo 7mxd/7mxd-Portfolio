@@ -42,6 +42,54 @@
       ]
     },
     {
+      "id": "hisalon",
+      "title": "HiSalon",
+      "org": "Join Future",
+      "timeline": false,
+      "startDate": "2026-04",
+      "displayDate": "2026 — present",
+      "tags": [
+        "NestJS",
+        "PostgreSQL",
+        "TypeScript",
+        "React",
+        "Flutter",
+        "Claude Code"
+      ],
+      "links": {
+        "webapp": "https://hisalon.ai",
+        "extra": [
+          {
+            "url": "https://app.hisalon.ai",
+            "label": "Web app"
+          },
+          {
+            "url": "https://apps.apple.com/app/hisalon/id6775216833",
+            "label": "Customer app (iOS)"
+          },
+          {
+            "url": "https://apps.apple.com/app/hisalon-admin/id6792262728",
+            "label": "Admin app (iOS)"
+          }
+        ]
+      },
+      "blocks": [
+        {
+          "type": "description",
+          "content": "A salon management platform for independent salons in the Gulf, in Arabic and English: a web app for the salon, a customer app for booking, and an admin app the owner and staff run the day from, all on one multi-tenant backend."
+        },
+        {
+          "type": "description",
+          "content": "I built its HR and payroll, gift cards, loyalty, offers, and a digital contract-signing flow, each across the NestJS and PostgreSQL backend, the React dashboard, and the two Flutter apps."
+        },
+        {
+          "type": "callout",
+          "tone": "note",
+          "content": "HiSalon belongs to Join Future, so the links stand in for screenshots."
+        }
+      ]
+    },
+    {
       "id": "stmnt",
       "title": "Stmnt: Bank Statement Analyzer",
       "org": "Independent",
