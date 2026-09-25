@@ -83,6 +83,7 @@ function outboundIcon(href, kind) {
   if (/^https?:\/\/(www\.)?linkedin\.com/i.test(url)) return ICONS.linkedin;
   if (/^https?:\/\/(www\.)?github\.com/i.test(url)) return ICONS.github;
   if (/^mailto:/i.test(url)) return ICONS.mail;
+  if (/^https?:\/\/(apps\.apple\.com|play\.google\.com)\//i.test(url)) return ICONS.app;
   return /^https?:/i.test(url) ? ICONS.external : '';
 }
 

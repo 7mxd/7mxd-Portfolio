@@ -44,6 +44,11 @@ throughout the timeline and Selected Work, dated.
 **Wafa and HiSalon were removed from Selected Work** at the owner's request,
 leaving the site consistent with the CV.
 
+**HiSalon returned to Selected Work on 2026-09-25**, once the April 2026 CV
+named it and the owner asked for it. It stays at CV level: what the product is,
+what Ahmed built, the stack, and its four public links. Nothing sourced from
+the private repo, and no screenshots until Join Future agrees.
+
 **The procurement audit platform was promoted from an experience bullet to a
 Selected Work entry.** An earlier draft truncated the Saal.ai role from ten CV
 bullets to four, discarding real evidence. Promoting the platform keeps every

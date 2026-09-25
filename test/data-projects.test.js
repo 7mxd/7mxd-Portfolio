@@ -5,13 +5,25 @@ import { readFileSync } from 'node:fs';
 const data = JSON.parse(readFileSync(new URL('../data/projects.json', import.meta.url)));
 const ids = data.items.map((p) => p.id);
 
-test('selected work is the audit platform, Stmnt, and the kernel RLS research', () => {
-  assert.deepEqual(ids, ['saal-audit-platform', 'stmnt', 'kernel-rls']);
+test('selected work is the audit platform, HiSalon, Stmnt, and the kernel RLS research', () => {
+  assert.deepEqual(ids, ['saal-audit-platform', 'hisalon', 'stmnt', 'kernel-rls']);
 });
 
-test('HiSalon and Wafa are removed', () => {
-  const raw = JSON.stringify(data);
-  assert.equal(/HiSalon|Wafa/i.test(raw), false);
+// HiSalon came back once the April 2026 CV named it; Wafa did not.
+test('Wafa stays removed', () => {
+  assert.equal(/Wafa/i.test(JSON.stringify(data)), false);
+});
+
+test('HiSalon is excluded from the timeline, since the Join Future role represents it', () => {
+  assert.equal(data.items.find((p) => p.id === 'hisalon').timeline, false);
+});
+
+// A storefront in the path sends every reader to one country's store, which
+// then shows prices and availability for the wrong region.
+test('App Store links name no storefront', () => {
+  const urls = JSON.stringify(data).match(/https:\/\/apps\.apple\.com\/[^"]*/g) ?? [];
+  assert.ok(urls.length >= 3, `expected the App Store links, found ${urls.length}`);
+  for (const url of urls) assert.match(url, /^https:\/\/apps\.apple\.com\/app\//, url);
 });
 
 test('no forbidden Join-Future product names anywhere', () => {
