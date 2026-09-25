@@ -2,25 +2,25 @@
   "name": "Ahmed Alawi Radhi",
   "nameArabic": "أحمد علوي رضي",
   "role": "Data scientist in Abu Dhabi",
-  "tagline": "I build data pipelines and the analysis that runs on top of them: matching, anomaly detection, and dashboards people actually use.",
+  "tagline": "I build data pipelines and the analysis that runs on top of them, and full stack web and mobile products end to end.",
   "pills": [
-    {
-      "label": "Saal.ai · 2024–2026"
-    },
     {
       "label": "Join Future · 2026–present"
     },
     {
-      "label": "Data Science · ETL"
+      "label": "Saal.ai · 2024–2026"
+    },
+    {
+      "label": "Data Science · Full Stack"
     },
     {
       "label": "Applied Mathematics · Khalifa University"
     },
     {
-      "label": "Abu Dhabi · UAE"
+      "label": "Python · TypeScript · Flutter"
     },
     {
-      "label": "Python · Pandas · MongoDB"
+      "label": "Abu Dhabi · UAE"
     },
     {
       "label": "علوم البيانات",
