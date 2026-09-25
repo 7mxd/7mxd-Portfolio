@@ -146,8 +146,7 @@
   text-decoration: none;
 }
 .hero-links a span,
-.entry-more a span,
-.work-links a span { text-decoration: underline; }
+.entry-more a span { text-decoration: underline; }
 
 .link-icon {
   flex: none;
@@ -645,7 +644,7 @@
   color: var(--ink-muted);
 }
 
-/* Link pills: raised, and underlined, so they never read as the hero's labels. */
+/* Link pills: raised and led by an icon, so they never read as the hero's labels. */
 .work-links {
   list-style: none;
   padding: 0;
@@ -673,6 +672,11 @@
   }
   .work-links::-webkit-scrollbar { display: none; }
   .work-links li { flex: none; scroll-snap-align: start; }
+  .work-links.more-end { mask-image: linear-gradient(to right, black calc(100% - 4rem), transparent); }
+  .work-links.more-start { mask-image: linear-gradient(to left, black calc(100% - 4rem), transparent); }
+  .work-links.more-start.more-end {
+    mask-image: linear-gradient(to right, transparent, black 4rem, black calc(100% - 4rem), transparent);
+  }
 }
 
 /* Skills */
