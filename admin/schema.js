@@ -142,7 +142,12 @@ export const COLLECTIONS = [
       { name:'webapp', label:'Web app URL', type:'string' },
       { name:'github', label:'GitHub URL', type:'string' },
       { name:'extra', label:'Extra links', type:'list', fields:[
-        { name:'url', label:'URL', type:'string' }, { name:'label', label:'Label', type:'string' } ] } ] },
+        { name:'url', label:'URL', type:'string' }, { name:'label', label:'Label', type:'string' } ] },
+      // One pill per app on the page, with a mark for each store it is on.
+      { name:'apps', label:'Apps', type:'list', fields:[
+        { name:'label', label:'App name', type:'string' },
+        { name:'ios', label:'App Store URL', type:'string' },
+        { name:'android', label:'Google Play URL', type:'string' } ] } ] },
     imagesField,
     { name:'blocks', label:'Blocks', type:'blocks', scope:'project' } ] },
 

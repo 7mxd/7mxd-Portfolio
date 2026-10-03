@@ -493,6 +493,25 @@ test('About renders one paragraph per blank-line-separated block', () => {
   assert.equal((about.match(/<p class="prose">/g) || []).length, expected);
 });
 
+// An app's pill names it once and links each store through its mark, which
+// says nothing to a screen reader on its own. The path openings identify the
+// Apple and Android glyphs, so a swapped pair fails here.
+test('an app pill names the app once and labels each store mark', () => {
+  const work = renderFixture().sections.get('work').innerHTML;
+  const article = work.match(/<article class="work" id="work-hisalon">[^]*?<\/article>/)?.[0] ?? '';
+  const pills = article.match(/<li class="app-pill">[^]*?<\/li>/g) ?? [];
+  assert.equal(pills.length, 2, `expected two app pills, found ${pills.length}`);
+  const apps = DATA.projects.items.find((p) => p.id === 'hisalon').links.apps;
+  const esc = (t) => t.replace(/[.?]/g, '\\$&');
+  for (const [pill, app] of pills.map((p, i) => [p, apps[i]])) {
+    assert.equal(pill.match(/<span>([^<]*)<\/span>/)?.[1], app.label);
+    const ios = pill.match(new RegExp(`<a href="${esc(app.ios)}" aria-label="${app.label} on the App Store"><svg[^>]*><path d="M12\\.15 6\\.9`));
+    const android = pill.match(new RegExp(`<a href="${esc(app.android)}" aria-label="${app.label} on Google Play"><svg[^>]*><path d="M18\\.44 5\\.56`));
+    assert.ok(ios, `${app.label}: no labelled App Store link with the Apple mark`);
+    assert.ok(android, `${app.label}: no labelled Google Play link with the Android mark`);
+  }
+});
+
 test('every link in a work row or a timeline row leads with an icon', () => {
   const { sections } = renderFixture();
   const html = sections.get('work').innerHTML + sections.get('path').innerHTML;

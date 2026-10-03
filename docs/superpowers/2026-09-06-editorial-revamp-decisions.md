@@ -57,6 +57,13 @@ They come from a TestFlight build, so the "TestFlight" back-link iOS draws in
 the status bar was painted out of two of them. The callout explaining that the
 links stood in for screenshots went with it.
 
+**An app gets one pill, with a mark per store** (2026-10-03, at the owner's
+request). Two apps on two stores made four pills that each repeated the
+product's name; now "HiSalon" and "HiSalon Admin" each carry an Apple and an
+Android mark, and each mark is a link labelled for screen readers with the app
+and the store. Store links everywhere use the Apple and Android marks in place
+of the handset, so one mark means one thing across the page.
+
 **Join Future's other products may be named, superseding the June rule.** The
 June spec kept everything but HiSalon unnamed because the CV left them out. The
 April 2026 CV names HiPay and HiChat as minor contributions beside the major one
