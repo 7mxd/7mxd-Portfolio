@@ -49,6 +49,14 @@ named it and the owner asked for it. It stays at CV level: what the product is,
 what Ahmed built, the stack, and its four public links. Nothing sourced from
 the private repo, and no screenshots until Join Future agrees.
 
+**HiSalon gained screenshots and its Play Store links on 2026-10-03**, when the
+owner supplied both. Like Stmnt's, the screenshots are the raw device captures
+rather than the store's marketing exports, chosen to show the claims the entry
+makes: finding a salon, the loyalty and gift cards Ahmed built, and booking.
+They come from a TestFlight build, so the "TestFlight" back-link iOS draws in
+the status bar was painted out of two of them. The callout explaining that the
+links stood in for screenshots went with it.
+
 **Join Future's other products may be named, superseding the June rule.** The
 June spec kept everything but HiSalon unnamed because the CV left them out. The
 April 2026 CV names HiPay and HiChat as minor contributions beside the major one

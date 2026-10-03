@@ -27,11 +27,48 @@
             "label": "Customer app (iOS)"
           },
           {
+            "url": "https://play.google.com/store/apps/details?id=ai.hisalon.hisalon_customer",
+            "label": "Customer app (Android)"
+          },
+          {
             "url": "https://apps.apple.com/app/hisalon-admin/id6792262728",
             "label": "Admin app (iOS)"
+          },
+          {
+            "url": "https://play.google.com/store/apps/details?id=ai.hisalon.admin",
+            "label": "Admin app (Android)"
           }
         ]
       },
+      "images": [
+        {
+          "src": "assets/photos/derived/hisalon-01-discover-1600.jpg",
+          "srcSmall": "assets/photos/derived/hisalon-01-discover-800.jpg",
+          "alt": "HiSalon customer app home screen with salon search, service filters, a featured barber, and a list of salons in Bahrain",
+          "caption": "Finding a salon",
+          "width": 736,
+          "height": 1600,
+          "widthSmall": 368
+        },
+        {
+          "src": "assets/photos/derived/hisalon-02-salon-loyalty-1600.jpg",
+          "srcSmall": "assets/photos/derived/hisalon-02-salon-loyalty-800.jpg",
+          "alt": "HiSalon salon page showing the salon's photo, rating, a loyalty card earning one point per dinar spent, and its gift cards",
+          "caption": "Loyalty and gift cards",
+          "width": 736,
+          "height": 1600,
+          "widthSmall": 368
+        },
+        {
+          "src": "assets/photos/derived/hisalon-03-book-appointment-1600.jpg",
+          "srcSmall": "assets/photos/derived/hisalon-03-book-appointment-800.jpg",
+          "alt": "HiSalon booking screen with a stylist picker, a row of days, and fifteen-minute time slots",
+          "caption": "Booking a time",
+          "width": 736,
+          "height": 1600,
+          "widthSmall": 368
+        }
+      ],
       "blocks": [
         {
           "type": "description",
@@ -40,11 +77,6 @@
         {
           "type": "description",
           "content": "I built its HR and payroll, gift cards, loyalty, offers, and a digital contract-signing flow, each across the NestJS and PostgreSQL backend, the React dashboard, and the two Flutter apps."
-        },
-        {
-          "type": "callout",
-          "tone": "note",
-          "content": "HiSalon belongs to Join Future, so the links stand in for screenshots."
         }
       ]
     },
