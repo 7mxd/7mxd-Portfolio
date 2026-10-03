@@ -39,6 +39,11 @@
     {
       "company": "Join Future W.L.L.",
       "location": "Bahrain, remote",
+      "logo": {
+        "default": "assets/logos/join-future.png",
+        "light": "assets/logos/join-future.png",
+        "dark": "assets/logos/join-future.png"
+      },
       "roles": [
         {
           "id": "join-future-full-stack",
