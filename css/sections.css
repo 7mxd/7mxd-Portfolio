@@ -652,13 +652,28 @@
   gap: var(--space-2);
   font-size: var(--text-sm);
 }
-.work-links a {
+.work-links a,
+.work-links .app-pill {
   padding: 0.3em 0.8em;
   background: var(--raised);
   border: var(--rule-width) solid var(--rule-accent);
   border-radius: 999px;
 }
-.work-links a:hover { border-color: var(--accent); }
+.work-links a:hover,
+.work-links .app-pill:hover { border-color: var(--accent); }
+/* An app's pill: its name, then one mark per store. The marks are the links,
+   each stretched to the pill's full height so it stays a 24px target. */
+.work-links .app-pill {
+  display: flex;
+  align-items: stretch;
+  padding-block: 0;
+  padding-inline-end: 0.4em;
+  color: var(--accent);
+}
+.app-pill > span:first-child { padding-block: 0.3em; margin-inline-end: 0.15em; }
+.work-links .app-pill a { padding: 0 0.35em; background: none; border: 0; border-radius: 0; }
+.app-pill a:hover { color: var(--accent-strong); }
+.app-sep { align-self: center; opacity: 0.45; }
 /* Phones: one swipeable row, bled to the edge so a cut pill says there is more. */
 @media (max-width: 40rem) {
   .work-links {

@@ -60,12 +60,11 @@ const ICONS = {
   globe: `<svg class="link-icon" ${STROKE}><circle cx="12" cy="12" r="9"></circle>`
     + `<path d="M3.2 9.5h17.6M3.2 14.5h17.6"></path>`
     + `<path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"></path></svg>`,
-  // A phone, not the Apple mark. LinkedIn and GitHub publish their glyphs for
-  // linking to a profile; Apple's guidelines reserve theirs and sanction only
-  // the full "Download on the App Store" badge, which is far too heavy for a
-  // link row. A handset beside the words "App Store" is unambiguous anyway.
-  app: `<svg class="link-icon" ${STROKE}><rect x="6" y="2.5" width="12" height="19" rx="2.5"></rect>`
-    + `<path d="M10.5 18.5h3"></path></svg>`,
+  // The platforms' own marks, from Simple Icons. A handset stood here while
+  // every store link also carried its store's name; on an app's pill the mark
+  // is the whole of its link, so it has to be one a reader already knows.
+  apple: `<svg class="link-icon" ${FILL}><path d="M12.15 6.9c-.95 0-2.41-1.08-3.96-1.04-2.04.03-3.91 1.18-4.96 3.01-2.12 3.68-.55 9.1 1.52 12.09 1.01 1.45 2.21 3.09 3.79 3.04 1.52-.06 2.09-.99 3.94-.99 1.83 0 2.35.99 3.96.95 1.64-.03 2.68-1.48 3.68-2.95 1.16-1.69 1.64-3.32 1.66-3.41-.04-.01-3.18-1.22-3.22-4.86-.03-3.04 2.48-4.49 2.6-4.56-1.43-2.09-3.62-2.32-4.39-2.38-2-.16-3.67 1.09-4.61 1.09zM15.53 3.83c.84-1.01 1.4-2.43 1.25-3.83-1.21.05-2.66.81-3.53 1.82-.78.9-1.45 2.34-1.27 3.71 1.34.1 2.72-.69 3.56-1.7"></path></svg>`,
+  android: `<svg class="link-icon" ${FILL}><path d="M18.44 5.56c-.67 1.17-1.35 2.33-2.03 3.5-.04-.02-.07-.03-.11-.04-1.82-.7-3.48-.8-4.42-.79-1.86.02-3.35.46-4.26.82-.08-.15-1.75-3.02-2.02-3.49a1.15 1.15 0 0 0-.14-.19c-.33-.36-.91-.49-1.38-.2-.47.28-.71.94-.39 1.5 1.95 3.37-.1-.22 1.95 3.36.02.03-.49.26-1.39 1.02C2.9 12.18.45 14.77 0 18.99h24c-.12-1.11-.37-2.1-.75-3.07-.74-1.91-1.84-3.29-2.74-4.18a12.1 12.1 0 0 0-2.13-1.69c.66-1.12 1.31-2.26 1.96-3.38.21-.36.19-.8-.01-1.12a1.1 1.1 0 0 0-.85-.53c-.52-.05-.94.31-1.05.54zm-.04 8.46c.39.59.32 1.33-.16 1.65-.48.32-1.19.1-1.58-.49-.39-.59-.32-1.33.16-1.65.47-.31 1.18-.11 1.58.49zM7.21 13.53c.48.32.55 1.06.16 1.65-.39.59-1.1.81-1.58.49-.48-.32-.55-1.06-.16-1.65.4-.6 1.11-.81 1.58-.49z"></path></svg>`,
   doc: `<svg class="link-icon" ${STROKE}><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path>`
     + `<path d="M14 3v5h5M9 13h6M9 17h6"></path></svg>`,
   // A web app; the globe already means "website".
@@ -90,7 +89,8 @@ function outboundIcon(href, kind) {
   if (/^https?:\/\/(www\.)?linkedin\.com/i.test(url)) return ICONS.linkedin;
   if (/^https?:\/\/(www\.)?github\.com/i.test(url)) return ICONS.github;
   if (/^mailto:/i.test(url)) return ICONS.mail;
-  if (/^https?:\/\/(apps\.apple\.com|play\.google\.com)\//i.test(url)) return ICONS.app;
+  if (/^https?:\/\/apps\.apple\.com\//i.test(url)) return ICONS.apple;
+  if (/^https?:\/\/play\.google\.com\//i.test(url)) return ICONS.android;
   if (/\.pdf$/i.test(url)) return ICONS.doc;
   if (url.startsWith('#')) return ICONS.down;
   return /^https?:/i.test(url) ? ICONS.external : '';
@@ -287,7 +287,7 @@ function entryMarkup(entry) {
   }
   // A published app that nobody can open from the entry describing it is a
   // dead end. Labels are interface, not content, so they live here.
-  for (const [key, label, kind] of [['webapp', 'Website', 'globe'], ['ios', 'App Store', 'app'], ['github', 'GitHub', null]]) {
+  for (const [key, label, kind] of [['webapp', 'Website', 'globe'], ['ios', 'App Store', 'apple'], ['github', 'GitHub', null]]) {
     const url = entry.outboundLinks?.[key];
     if (url) links.push(`<a href="${escapeHtml(url)}" rel="noopener">${outboundIcon(url, kind)}<span>${label}</span></a>`);
   }
@@ -362,7 +362,7 @@ function workMarkup(project) {
 
   // One order everywhere. Every pill leads with a mark; an unknown web address
   // is a web app, so it gets the window rather than the outbound arrow.
-  const named = [['webapp', 'Website', 'globe'], ['ios', 'App Store', 'app'], ['github', 'GitHub', null]];
+  const named = [['webapp', 'Website', 'globe'], ['ios', 'App Store', 'apple'], ['github', 'GitHub', null]];
   const links = [];
   for (const [key, label, kind] of named) {
     if (project.links?.[key]) links.push(iconLink(project.links[key], label, kind));
@@ -371,7 +371,19 @@ function workMarkup(project) {
     const icon = outboundIcon(extra.url);
     links.push(iconLink(extra.url, extra.label, icon === ICONS.external ? 'window' : null));
   }
-  const linkRow = links.length ? `<ul class="work-links">${links.map((a) => `<li>${a}</li>`).join('')}</ul>` : '';
+  const items = links.map((a) => `<li>${a}</li>`);
+  // One pill per app, its stores as marks. Two apps on two stores made four
+  // pills, each repeating the product's name. A mark alone names nothing to a
+  // screen reader, so each link carries the app and the store in its label.
+  for (const app of project.links?.apps ?? []) {
+    const stores = [['ios', 'the App Store', 'apple'], ['android', 'Google Play', 'android']]
+      .filter(([key]) => app[key])
+      .map(([key, store, kind]) => `<a href="${escapeHtml(app[key])}" aria-label="${escapeHtml(`${app.label} on ${store}`)}">${ICONS[kind]}</a>`);
+    if (stores.length) {
+      items.push(`<li class="app-pill"><span>${escapeHtml(app.label)}</span>${stores.join('<span class="app-sep" aria-hidden="true">/</span>')}</li>`);
+    }
+  }
+  const linkRow = items.length ? `<ul class="work-links">${items.join('')}</ul>` : '';
 
   const org = project.org ? `<span class="work-org">${escapeHtml(project.org)}</span>` : '';
   const dates = project.displayDate ? `<span class="work-dates">${escapeHtml(project.displayDate)}</span>` : '';

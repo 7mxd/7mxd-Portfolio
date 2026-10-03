@@ -35,12 +35,15 @@ test('Play Store links carry the package id and nothing else', () => {
   for (const url of urls) assert.match(url, /^https:\/\/play\.google\.com\/store\/apps\/details\?id=[\w.]+$/, url);
 });
 
-test('HiSalon links both of its apps on both stores', () => {
+// One pill per app, so no store link may also sit among the extra links.
+test('HiSalon lists each of its two apps once, on both stores', () => {
   const hisalon = data.items.find((p) => p.id === 'hisalon');
-  const labels = hisalon.links.extra.map((l) => l.label);
-  for (const app of ['Customer app', 'Admin app']) {
-    for (const store of ['iOS', 'Android']) assert.ok(labels.includes(`${app} (${store})`), `${app} (${store}) missing`);
+  assert.deepEqual(hisalon.links.apps.map((a) => a.label), ['HiSalon', 'HiSalon Admin']);
+  for (const app of hisalon.links.apps) {
+    assert.match(app.ios ?? '', /^https:\/\/apps\.apple\.com\//, `${app.label} has no App Store link`);
+    assert.match(app.android ?? '', /^https:\/\/play\.google\.com\//, `${app.label} has no Google Play link`);
   }
+  for (const extra of hisalon.links.extra) assert.doesNotMatch(extra.url, /apps\.apple\.com|play\.google\.com/, extra.url);
 });
 
 // A note explaining why an entry has no screenshots is false once it has them.

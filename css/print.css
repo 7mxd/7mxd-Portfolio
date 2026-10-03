@@ -84,7 +84,8 @@ main { max-width: none; padding: 0; }
 .work-title, .work-meta { break-after: avoid; }
 .work-links { break-inside: avoid; }
 .work-links { flex-wrap: wrap; overflow: visible; margin-inline: 0; padding: 0; }
-.work-links a { padding: 0; background: none; border: 0; }
+.work-links a, .work-links .app-pill { padding: 0; background: none; border: 0; }
+.work-links .app-pill { flex-wrap: wrap; align-items: center; }
 .work p, .block-text { orphans: 3; widows: 3; }
 
 /* Both are short, self-contained units, so forcing them whole never risks the

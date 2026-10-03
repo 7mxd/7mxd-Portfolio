@@ -21,22 +21,18 @@
           {
             "url": "https://app.hisalon.ai",
             "label": "Web app"
+          }
+        ],
+        "apps": [
+          {
+            "label": "HiSalon",
+            "ios": "https://apps.apple.com/app/hisalon/id6775216833",
+            "android": "https://play.google.com/store/apps/details?id=ai.hisalon.hisalon_customer"
           },
           {
-            "url": "https://apps.apple.com/app/hisalon/id6775216833",
-            "label": "Customer app (iOS)"
-          },
-          {
-            "url": "https://play.google.com/store/apps/details?id=ai.hisalon.hisalon_customer",
-            "label": "Customer app (Android)"
-          },
-          {
-            "url": "https://apps.apple.com/app/hisalon-admin/id6792262728",
-            "label": "Admin app (iOS)"
-          },
-          {
-            "url": "https://play.google.com/store/apps/details?id=ai.hisalon.admin",
-            "label": "Admin app (Android)"
+            "label": "HiSalon Admin",
+            "ios": "https://apps.apple.com/app/hisalon-admin/id6792262728",
+            "android": "https://play.google.com/store/apps/details?id=ai.hisalon.admin"
           }
         ]
       },
