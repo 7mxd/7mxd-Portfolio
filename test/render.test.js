@@ -299,9 +299,20 @@ test('the Saal.ai mark renders on its roles, in both themes', () => {
 
   // The Khalifa, Daman and Al Nahda marks ship in one dark-ink colourway, so
   // they get the light chip that keeps them legible on the dark ground.
-  const single = logos.filter((l) => !l.includes('saal-'));
+  const single = logos.filter((l) => !l.includes('entry-logo-light'));
   assert.ok(single.length >= 3, `expected the single-colourway marks, got ${single.length}`);
   for (const mark of single) assert.match(mark, /class="entry-logo is-plated"/);
+});
+
+// Join Future's orange reads on both grounds, which is how its own brand page
+// shows it, so the one file serves as both variants and takes no plate.
+test('the Join Future mark renders on its role, unplated in both themes', () => {
+  const html = renderFixture().sections.get('path').innerHTML;
+  const entry = html.match(/<li class="entry[^"]*">(?:(?!<li class="entry)[^])*?Join Future W\.L\.L\.[^]*?<\/li>/)?.[0] ?? '';
+  const mark = entry.match(/<span class="entry-logo[^"]*">.*?<\/span>/s)?.[0] ?? '';
+  assert.match(mark, /class="entry-logo-light" src="assets\/logos\/join-future\.png"/, 'no light-ground mark');
+  assert.match(mark, /class="entry-logo-dark" src="assets\/logos\/join-future\.png"/, 'no dark-ground mark');
+  assert.equal(/is-plated/.test(mark), false, 'the orange mark needs no plate');
 });
 
 test('organisation marks are decorative and lazy, since the org name is already text', () => {

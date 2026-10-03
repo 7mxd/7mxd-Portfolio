@@ -30,6 +30,9 @@ SOURCES = [
     "Khalifa_University_Logo.png",
     "Daman_Logo.png",
     "Al_Nahda_Logo.png",
+    # Drawn from the two polygons in Join Future's own favicon.svg, in its
+    # brand orange, which reads on both grounds.
+    "Join_Future_Logo.png",
 ]
 
 
