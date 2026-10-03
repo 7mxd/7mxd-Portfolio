@@ -27,6 +27,31 @@ test('App Store links name no storefront', () => {
   for (const url of urls) assert.match(url, /^https:\/\/apps\.apple\.com\/app\//, url);
 });
 
+// The same trap on Google Play: `hl` and `gl` pin the listing to one language
+// and one country.
+test('Play Store links carry the package id and nothing else', () => {
+  const urls = JSON.stringify(data).match(/https:\/\/play\.google\.com\/[^"]*/g) ?? [];
+  assert.ok(urls.length >= 2, `expected the Play Store links, found ${urls.length}`);
+  for (const url of urls) assert.match(url, /^https:\/\/play\.google\.com\/store\/apps\/details\?id=[\w.]+$/, url);
+});
+
+test('HiSalon links both of its apps on both stores', () => {
+  const hisalon = data.items.find((p) => p.id === 'hisalon');
+  const labels = hisalon.links.extra.map((l) => l.label);
+  for (const app of ['Customer app', 'Admin app']) {
+    for (const store of ['iOS', 'Android']) assert.ok(labels.includes(`${app} (${store})`), `${app} (${store}) missing`);
+  }
+});
+
+// A note explaining why an entry has no screenshots is false once it has them.
+test('no entry with screenshots carries a note about lacking them', () => {
+  for (const p of data.items.filter((item) => item.images?.length)) {
+    for (const b of p.blocks.filter((block) => block.type === 'callout')) {
+      assert.equal(/screenshot/i.test(b.content), false, `${p.id}: ${b.content}`);
+    }
+  }
+});
+
 // HiPay and HiChat may be named since the April 2026 CV names them; see the
 // editorial-revamp decisions doc. The company domain and joinCX stay off.
 test('the Join Future domain and joinCX stay off', () => {

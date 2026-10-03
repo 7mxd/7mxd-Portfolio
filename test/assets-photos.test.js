@@ -15,6 +15,9 @@ const STEMS = [
   'stmnt-01-spending-by-category',
   'stmnt-04-recurring-subscriptions',
   'stmnt-05-smart-forecast',
+  'hisalon-01-discover',
+  'hisalon-02-salon-loyalty',
+  'hisalon-03-book-appointment',
 ];
 
 // Walk JPEG segment markers to read the SOF frame dimensions.
@@ -56,6 +59,9 @@ const SOURCE_FILES = {
   'stmnt-01-spending-by-category': 'assets/photos/stmnt/01-spending-by-category.png',
   'stmnt-04-recurring-subscriptions': 'assets/photos/stmnt/04-recurring-subscriptions.png',
   'stmnt-05-smart-forecast': 'assets/photos/stmnt/05-smart-forecast.png',
+  'hisalon-01-discover': 'assets/photos/hisalon/01-discover.png',
+  'hisalon-02-salon-loyalty': 'assets/photos/hisalon/02-salon-loyalty.png',
+  'hisalon-03-book-appointment': 'assets/photos/hisalon/03-book-appointment.png',
 };
 
 // tools/process_photos.py crops this one stem (a soft video frame where the

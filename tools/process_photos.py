@@ -26,6 +26,11 @@ SOURCES = [
     ("stmnt/01-spending-by-category.png", "stmnt-01-spending-by-category"),
     ("stmnt/04-recurring-subscriptions.png", "stmnt-04-recurring-subscriptions"),
     ("stmnt/05-smart-forecast.png", "stmnt-05-smart-forecast"),
+    # Raw captures from a TestFlight build, with the "TestFlight" back-link iOS
+    # draws in the status bar painted out of the first two.
+    ("hisalon/01-discover.png", "hisalon-01-discover"),
+    ("hisalon/02-salon-loyalty.png", "hisalon-02-salon-loyalty"),
+    ("hisalon/03-book-appointment.png", "hisalon-03-book-appointment"),
 ]
 
 # stem: (left, top, right, bottom) as fractions of the source size.
