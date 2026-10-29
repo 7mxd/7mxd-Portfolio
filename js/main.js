@@ -50,7 +50,7 @@ function markScrollRows(doc) {
   }
 }
 
-/** Footer "CV updated": the date of the newest commit on main that touched the
+/** "Updated 14 Oct 2026" under the CV button: the date of the newest commit on main that touched the
  *  CV file settings.json points at, so it moves with every new CV and can never
  *  go stale the way a hand-kept date would. Public API, no token; on any
  *  failure (offline, rate limit) the line simply stays hidden. */
@@ -64,7 +64,7 @@ async function showCvUpdated(doc, cvPath) {
     if (!iso) return;
     const time = slot.querySelector('time');
     time.dateTime = iso.slice(0, 10);
-    time.textContent = new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    time.textContent = new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
     slot.hidden = false;
   } catch { /* leave it hidden */ }
 }

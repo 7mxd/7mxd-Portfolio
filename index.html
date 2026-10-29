@@ -127,8 +127,8 @@
     </div>
     <!-- Outside .nav-links for the same reason as the theme toggle below: the CV
          is the one thing a recruiter came for, so it never hides in the drawer.
-         Below 46rem the label shortens to "CV"; the hidden word keeps the
-         accessible name "Download CV". -->
+         Below 46rem the label shortens to "CV" and the date drops "Updated";
+         the clipped words keep the accessible name whole. -->
     <div class="nav-actions">
       <a class="cv-button" data-cv-link href="#" download>
         <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
@@ -136,7 +136,10 @@
           <polyline points="7 10 12 15 17 10"></polyline>
           <line x1="12" y1="15" x2="12" y2="3"></line>
         </svg>
-        <span><span class="cv-verb">Download </span>CV</span>
+        <span class="cv-text">
+          <span><span class="cv-verb">Download </span>CV</span>
+          <small class="cv-date" data-cv-updated hidden><span class="cv-verb">Updated </span><time></time></small>
+        </span>
       </a>
     </div>
     <!-- Outside .nav-links on purpose. On a phone the links collapse into a
@@ -174,7 +177,7 @@
 </main>
 
 <footer class="site-footer">
-  <p>&copy; <span data-footer-year></span> <span data-footer-name></span><span data-cv-updated hidden> · CV updated <time></time></span></p>
+  <p>&copy; <span data-footer-year></span> <span data-footer-name></span></p>
 </footer>
 </body>
 </html>
