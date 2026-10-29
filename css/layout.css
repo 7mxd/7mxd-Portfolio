@@ -104,15 +104,6 @@
 }
 .cv-button svg { width: 1rem; height: 1rem; flex: none; }
 .cv-button span { white-space: nowrap; }
-/* The CV's own date sits inside the button, so a reader sees how fresh it is
-   at the moment they decide to download. Filled by js/main.js. */
-.cv-text { display: flex; flex-direction: column; line-height: 1.15; }
-.cv-date {
-  font-size: 0.6875rem;
-  font-weight: 400;
-  white-space: nowrap;
-  opacity: 0.8;
-}
 
 .nav-menu-toggle { display: none; }
 
@@ -184,7 +175,7 @@ main {
 
   /* The CV stays in the bar at every width, so it shortens to "CV" here. The
      verb is clipped rather than removed so the accessible name stays whole. */
-  .cv-button { padding: var(--space-1) var(--space-3); min-height: 2.25rem; }
+  .site-nav .cv-button { padding: var(--space-2) var(--space-3); height: 2.25rem; }
   .cv-verb {
     position: absolute;
     width: 1px; height: 1px;
@@ -231,11 +222,10 @@ main {
   body.nav-open { overflow: hidden; }
 }
 
-/* On phone widths the dated CV button, theme and menu cannot all fit beside the
-   full name (it truncated even at 430px). The CV wins: the logo keeps the bar's
-   identity, the hero's first line is the name, and a clipped name keeps the
-   link's accessible name. */
-@media (max-width: 28rem) {
+/* Under ~390px (iPhone SE, small Androids) mark, CV, theme and menu cannot all
+   fit beside the full name. The logo keeps the bar's identity, the hero's first
+   line is the name, and a clipped name keeps the link's accessible name. */
+@media (max-width: 24.25rem) {
   .nav-mark-name {
     position: absolute;
     width: 1px; height: 1px;

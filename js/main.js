@@ -50,13 +50,24 @@ function markScrollRows(doc) {
   }
 }
 
-/** "Updated 14 Oct 2026" under the CV button: the date of the newest commit on main that touched the
- *  CV file settings.json points at, so it moves with every new CV and can never
- *  go stale the way a hand-kept date would. Public API, no token; on any
- *  failure (offline, rate limit) the line simply stays hidden. */
-async function showCvUpdated(doc, cvPath) {
+/** The hero CV's "116 KB · Updated 14 Oct 2026". Size comes from a HEAD on the
+ *  file itself; the date is the newest commit on main that touched the CV path
+ *  settings.json names, so it moves with every new CV and can never go stale
+ *  the way a hand-kept date would. Each part stays hidden if its source fails
+ *  (offline, GitHub rate limit), leaving the plain "PDF" behind. */
+async function showCvMeta(doc, cvPath) {
+  if (!cvPath) return;
+  const sizeSlot = doc.querySelector('[data-cv-size]');
+  if (sizeSlot) {
+    fetch(cvPath, { method: 'HEAD' }).then((res) => {
+      const bytes = Number(res.headers.get('content-length'));
+      if (!res.ok || !bytes) return;
+      sizeSlot.querySelector('span').textContent = `${Math.max(1, Math.round(bytes / 1024))} KB`;
+      sizeSlot.hidden = false;
+    }).catch(() => {});
+  }
   const slot = doc.querySelector('[data-cv-updated]');
-  if (!slot || !cvPath) return;
+  if (!slot) return;
   try {
     const res = await fetch(`https://api.github.com/repos/7mxd/7mxd-Portfolio/commits?sha=main&per_page=1&path=${encodeURIComponent(cvPath)}`);
     if (!res.ok) return;
@@ -77,7 +88,7 @@ async function boot() {
   try {
     const data = await loadSiteData();
     renderAll(document, data, buildTimeline(data));
-    showCvUpdated(document, data.settings.cv.path);
+    showCvMeta(document, data.settings.cv.path);
     markScrollRows(document);
   } catch (error) {
     console.error(error);

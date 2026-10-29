@@ -497,6 +497,19 @@ test('the availability line renders as its own undecorated element', () => {
   assert.ok(hero.indexOf('hero-status') < hero.indexOf('hero-links'), 'status follows the contact links');
 });
 
+// The CV answers the ask, so it sits directly under it, with the slots
+// js/main.js fills with the file's size and the date of its last commit.
+test('the hero carries the CV download, with size and date slots, after the status line', () => {
+  const hero = renderFixture().sections.get('hero').innerHTML;
+  assert.match(hero, /<div class="hero-cv">/);
+  assert.ok(hero.includes(`href="${DATA.settings.cv.path}"`), 'hero CV points at settings.cv.path');
+  assert.ok(hero.includes(`download="${DATA.settings.cv.downloadName}"`));
+  assert.match(hero, /data-cv-size hidden/);
+  assert.match(hero, /data-cv-updated hidden[^>]*>[^<]*Updated <time>/);
+  assert.ok(hero.indexOf('hero-cv') > hero.indexOf('hero-status'), 'CV follows the status line');
+  assert.ok(hero.indexOf('hero-cv') < hero.indexOf('hero-links'), 'CV precedes the contact links');
+});
+
 test('About renders one paragraph per blank-line-separated block', () => {
   const expected = DATA.summary.content.split(/\n\s*\n/).filter((p) => p.trim()).length;
   assert.ok(expected >= 2, 'the summary is still one undivided block');
