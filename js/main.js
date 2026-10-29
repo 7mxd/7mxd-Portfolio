@@ -50,6 +50,25 @@ function markScrollRows(doc) {
   }
 }
 
+/** "Updated 14 Oct 2026" under the hero's CV button: the newest commit on main
+ *  that touched the CV path settings.json names, so it moves with every new CV
+ *  and can never go stale the way a hand-kept date would. Public API, no token;
+ *  on any failure (offline, rate limit) the caption stays hidden. */
+async function showCvUpdated(doc, cvPath) {
+  const slot = doc.querySelector('[data-cv-updated]');
+  if (!slot || !cvPath) return;
+  try {
+    const res = await fetch(`https://api.github.com/repos/7mxd/7mxd-Portfolio/commits?sha=main&per_page=1&path=${encodeURIComponent(cvPath)}`);
+    if (!res.ok) return;
+    const iso = (await res.json())[0]?.commit?.committer?.date;
+    if (!iso) return;
+    const time = slot.querySelector('time');
+    time.dateTime = iso.slice(0, 10);
+    time.textContent = new Date(iso).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+    slot.hidden = false;
+  } catch { /* leave it hidden */ }
+}
+
 async function boot() {
   initTheme(document, window.localStorage, window.matchMedia('(prefers-color-scheme: dark)'));
   trackKeyboardUse(document);
@@ -58,6 +77,7 @@ async function boot() {
   try {
     const data = await loadSiteData();
     renderAll(document, data, buildTimeline(data));
+    showCvUpdated(document, data.settings.cv.path);
     markScrollRows(document);
   } catch (error) {
     console.error(error);

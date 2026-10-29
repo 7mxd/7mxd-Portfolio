@@ -49,7 +49,6 @@ function buildFixtureDoc() {
   const hooks = {
     '[data-nav-name]': new FakeElement(),
     '[data-nav-links]': new FakeElement(),
-    '[data-cv-link]': new FakeElement(),
     '[data-footer-year]': new FakeElement(),
     '[data-footer-name]': new FakeElement(),
   };
@@ -492,9 +491,23 @@ test('the availability line renders as its own undecorated element', () => {
   assert.ok(DATA.profile.status, 'profile.status is missing from the data');
   assert.match(hero, /<p class="hero-status">/);
   assert.ok(hero.includes(DATA.profile.status));
-  // It sits between the pills and the contact links that answer it.
-  assert.ok(hero.indexOf('hero-status') > hero.indexOf('hero-pills'), 'status precedes the pills');
-  assert.ok(hero.indexOf('hero-status') < hero.indexOf('hero-links'), 'status follows the contact links');
+  // It sits above the pills, so the ask and the CV that answers it land on a
+  // phone's first screen; the pills and contact links follow as support.
+  assert.ok(hero.indexOf('hero-status') < hero.indexOf('hero-pills'), 'status precedes the pills');
+  assert.ok(hero.indexOf('hero-status') < hero.indexOf('hero-links'), 'status precedes the contact links');
+});
+
+// The CV answers the ask, so it sits directly under it, with the slots
+// js/main.js fills with the file's size and the date of its last commit.
+test('the hero carries the CV download, with its date slot, after the status line', () => {
+  const hero = renderFixture().sections.get('hero').innerHTML;
+  assert.match(hero, /<div class="hero-cv">/);
+  assert.ok(hero.includes(`href="${DATA.settings.cv.path}"`), 'hero CV points at settings.cv.path');
+  assert.ok(hero.includes(`download="${DATA.settings.cv.downloadName}"`));
+  assert.match(hero, /<span data-cv-updated hidden>Updated <time><\/time><\/span>/);
+  assert.ok(hero.indexOf('hero-cv') > hero.indexOf('hero-status'), 'CV follows the status line');
+  assert.ok(hero.indexOf('hero-cv') < hero.indexOf('hero-pills'), 'CV precedes the pills');
+  assert.ok(hero.indexOf('hero-cv') < hero.indexOf('hero-links'), 'CV precedes the contact links');
 });
 
 test('About renders one paragraph per blank-line-separated block', () => {

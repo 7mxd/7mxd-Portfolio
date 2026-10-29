@@ -147,7 +147,21 @@ function gallery(images, context) {
   return `<div class="gallery ${modifier}" data-count="${images.length}"${region}>${figures}</div>`;
 }
 
-function renderHero(doc, profile) {
+const DOWNLOAD_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>';
+
+/** The CV as the answer to the status line above it: the primary button, and
+ *  under it the one thing a reader wants to know before tapping, which is how
+ *  fresh it is. The date is filled by js/main.js from the file's git history,
+ *  so it cannot drift from the PDF. */
+function heroCv(cv) {
+  if (!cv?.path) return '';
+  return `<div class="hero-cv">
+    <a class="cv-button" href="${escapeHtml(cv.path)}" download="${escapeHtml(cv.downloadName ?? '')}">${DOWNLOAD_ICON}<span>Download CV</span></a>
+    <p class="hero-cv-meta"><span data-cv-updated hidden>Updated <time></time></span></p>
+  </div>`;
+}
+
+function renderHero(doc, profile, cv) {
   const links = [
     iconLink(`mailto:${profile.contact.email}`, profile.contact.email),
     profile.contact.linkedin ? iconLink(profile.contact.linkedin.url, profile.contact.linkedin.label) : '',
@@ -192,8 +206,9 @@ ${portrait}
   <p class="hero-name-ar" lang="ar" dir="rtl">${escapeHtml(profile.nameArabic)}</p>
   <p class="hero-role">${escapeHtml(profile.role)}</p>
   <p class="hero-tagline">${escapeHtml(profile.tagline)}</p>
-  ${pills}
   ${status}
+  ${heroCv(cv)}
+  ${pills}
   <p class="hero-links">${links}</p>
 </div>`;
 }
@@ -479,12 +494,6 @@ function renderChrome(doc, data) {
       .join('');
   }
 
-  const cv = doc.querySelector('[data-cv-link]');
-  if (cv) {
-    cv.setAttribute('href', data.settings.cv.path);
-    cv.setAttribute('download', data.settings.cv.downloadName);
-  }
-
   const year = doc.querySelector('[data-footer-year]');
   if (year) year.textContent = String(new Date().getFullYear());
 
@@ -501,7 +510,7 @@ function applyVisibility(doc, settings) {
 
 export function renderAll(doc, data, timeline) {
   renderChrome(doc, data);
-  renderHero(doc, data.profile);
+  renderHero(doc, data.profile, data.settings.cv);
   renderAbout(doc, data.summary);
   renderPath(doc, timeline);
   renderNumbers(doc, data.metrics);

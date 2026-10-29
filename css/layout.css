@@ -62,12 +62,6 @@
 }
 .nav-list a:hover { color: var(--accent); }
 
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
 .theme-toggle {
   display: inline-flex;
   align-items: center;
@@ -86,30 +80,11 @@
 [data-theme="dark"] .icon-sun { display: none; }
 [data-theme="dark"] .icon-moon { display: block; }
 
-.cv-button {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
-  border: var(--rule-width) solid var(--ink);
-  color: var(--ink);
-  text-decoration: none;
-  font-family: var(--font-meta);
-  font-size: var(--text-sm);
-  font-weight: 500;
-}
-.cv-button:hover {
-  background: var(--ink);
-  color: var(--ground);
-}
-.cv-button svg { width: 1rem; height: 1rem; }
-.cv-button span { white-space: nowrap; }
-
 .nav-menu-toggle { display: none; }
 
 /* The toggle is a sibling of .nav-links in the markup so it survives the mobile
-   drawer collapse. Above 46rem it is reordered back to the right of the CV
-   button, which keeps the bar reading mark ... links, CV, theme. */
+   drawer collapse. Above 46rem it is reordered back to the right of the links,
+   which keeps the bar reading mark ... links, theme. */
 .nav-mark { order: 1; }
 .nav-links { order: 2; }
 .theme-toggle { order: 3; margin-left: var(--space-3); }

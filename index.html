@@ -124,22 +124,13 @@
     </button>
     <div class="nav-links" id="nav-links">
       <ul class="nav-list" data-nav-links></ul>
-      <div class="nav-actions">
-        <a class="cv-button" data-cv-link href="#" download>
-          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-          <span>Download CV</span>
-        </a>
-      </div>
     </div>
     <!-- Outside .nav-links on purpose. On a phone the links collapse into a
          drawer, and a theme toggle buried in a drawer costs two taps for a
          preference people flip once. Kept a sibling of the hamburger so it
-         stays in the bar; css/layout.css reorders it back beside the CV button
-         above 46rem. -->
+         stays in the bar; css/layout.css reorders it back beside the links
+         above 46rem. The CV has no nav copy: its one button sits in the hero
+         under the status line it answers (js/render.js). -->
     <button type="button" class="theme-toggle" aria-pressed="false">
       <span class="sr-only">Dark mode</span>
       <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">

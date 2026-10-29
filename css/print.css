@@ -34,7 +34,7 @@ body { font-size: 10.5pt; line-height: 1.4; }
 /* .noscript-warning is deliberately NOT hidden: it only exists in the document
    at all when scripting is off, and in that case it is the entire page. */
 .site-nav-wrap,
-.nav-actions,
+.hero-cv,
 .nav-menu-toggle,
 .skip-link,
 .work-tags { display: none !important; }
