@@ -526,6 +526,21 @@ test('the hero pills are three rows: organisations with spans, fields, tools', (
   for (const t of DATA.profile.tools) assert.ok(hero.includes(`<li>${t}</li>`), `tool pill "${t}" missing`);
 });
 
+// The caption comes before the label in the markup, so the pill reads as one
+// phrase to a screen reader as well as to the eye: "Bachelor of Science in …".
+test('a field pill with a caption sets it ahead of the label', () => {
+  const hero = renderFixture().sections.get('hero').innerHTML;
+  const captioned = DATA.profile.fields.filter((f) => f.caption);
+  assert.ok(captioned.length > 0, 'no field pill has a caption to test');
+  for (const f of captioned) {
+    assert.ok(
+      hero.includes(`<li class="has-caption"><small><span>${escapeHtml(f.caption)}</span> </small>${escapeHtml(f.label)}</li>`),
+      `captioned pill "${f.label}" not rendered caption-first`,
+    );
+  }
+  assert.equal((hero.match(/class="has-caption"/g) || []).length, captioned.length, 'an uncaptioned pill grew a caption');
+});
+
 test('About renders one paragraph per blank-line-separated block', () => {
   const expected = DATA.summary.content.split(/\n\s*\n/).filter((p) => p.trim()).length;
   assert.ok(expected >= 2, 'the summary is still one undivided block');

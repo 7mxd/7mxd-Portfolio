@@ -187,10 +187,14 @@ function heroOrgsMarkup(orgs) {
     + `</li>`).join('')}</ul>`;
 }
 
+/** A caption is the pill's lead-in, set into its top border the way an
+ *  organisation's span sits in the bottom one. It comes first in the markup
+ *  so it is also read first: "Bachelor of Science in Applied Mathematics…". */
 function pillItems(items) {
   return items.map((p) => {
     const attrs = p.lang === 'ar' ? ' lang="ar" dir="rtl"' : '';
-    return `<li${attrs}>${escapeHtml(p.label)}</li>`;
+    if (!p.caption) return `<li${attrs}>${escapeHtml(p.label)}</li>`;
+    return `<li class="has-caption"${attrs}><small><span>${escapeHtml(p.caption)}</span> </small>${escapeHtml(p.label)}</li>`;
   }).join('');
 }
 

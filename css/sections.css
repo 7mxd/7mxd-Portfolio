@@ -78,6 +78,9 @@
 .hero-pills {
   display: flex;
   flex-wrap: wrap;
+  /* A captioned pill is taller; its neighbours keep their own height and sit
+     on the same bottom line instead of stretching to match. */
+  align-items: flex-end;
   gap: var(--space-2);
   margin: var(--space-6) 0 var(--space-4);
 }
@@ -105,6 +108,34 @@
   font-family: var(--font-arabic);
   font-size: var(--text-sm);
   padding-block: 0.15em;
+}
+/* A field pill's caption sits in its top border, mirroring the span in an
+   organisation pill's bottom one, so "Bachelor of Science in" reads as the
+   pill's own lead-in rather than a separate fact. Same grid and zero-height
+   row as .org-pill; the gradient is flipped because the line now runs under
+   the text's lower half instead of its upper. */
+.hero-pills li.has-caption {
+  --cap-pt: 0.55rem;
+  display: inline-grid;
+  justify-items: center;
+  padding-top: var(--cap-pt);
+  /* Room for the caption above the border, so it clears the dates of the
+     organisation row (or any pill row) above it. */
+  margin-top: 0.45rem;
+}
+.has-caption small {
+  height: 0;
+  font-size: 0.65rem;
+  line-height: 1;
+  color: var(--ink-muted);
+  white-space: nowrap;
+  transform: translateY(calc(-1 * (var(--cap-pt) + var(--rule-width)) - 0.5em));
+}
+.has-caption small span {
+  display: inline-block;
+  padding: 0 0.45em;
+  margin-inline: 0.7rem;
+  background: linear-gradient(transparent 50%, var(--ground-raised) 50%);
 }
 /* Three rows, one kind of fact each: places, fields, tools. */
 .hero-orgs + .hero-pills { margin-top: 0; margin-bottom: var(--space-2); }
@@ -144,6 +175,9 @@
   line-height: 1;
   color: var(--ink-muted);
   font-variant-numeric: tabular-nums;
+  /* Public Sans kerns the spaces either side of an en dash nearly shut, so
+     "2026 – Present" read as "2026 –Present". Unkerned, the dash sits evenly. */
+  font-kerning: none;
   white-space: nowrap;
   /* Centre the text on the border's outer edge. */
   transform: translateY(calc(var(--org-pb) + var(--rule-width) - 0.5em));

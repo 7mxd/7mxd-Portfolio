@@ -82,6 +82,10 @@ main { max-width: none; padding: 0; }
 .org-pill { display: inline-flex; gap: 0.35em; border: 0; padding: 0; background: none; }
 .org-pill time { height: auto; transform: none; font-size: inherit; }
 .org-pill time span { background: none; margin: 0; padding: 0; }
+/* Same for a field pill's caption: "Bachelor of Science in Applied Mathematics…". */
+.hero-pills li.has-caption { display: inline; padding-top: 0; }
+.has-caption small { height: auto; transform: none; font-size: inherit; color: inherit; }
+.has-caption small span { background: none; margin: 0; padding: 0; }
 
 .work + .work { margin-top: 0.5cm; padding-top: 0.5cm; }
 
