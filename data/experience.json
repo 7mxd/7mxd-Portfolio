@@ -21,7 +21,7 @@
           "bullets": [
             "Primary developer of a procurement audit platform on Microsoft Dynamics 365 ERP data, authoring 28 of its 38 exception checks across procure-to-pay, vendor master data, and access rights.",
             "Flagged near-duplicate line items by pairing fuzzy and Levenshtein similarity with a cross-encoder NLP model, and containerised and scheduled the pipeline with Docker and APScheduler.",
-            "On other projects, developed ETL pipelines and Power BI and Tableau dashboards, designed ER diagrams, authored technical documentation, and supported client teams in resolving data issues."
+            "On other projects, created Power BI and Tableau dashboards for PoCs, built ETL pipelines from Jira user stories, designed ER diagrams, wrote documentation, and resolved client data issues."
           ]
         },
         {
@@ -32,7 +32,7 @@
           "displayDate": "Mar 2024 — Sep 2024",
           "bullets": [
             "Worked with MongoDB and PyMongo, and built a REST API with Flask, validated using Postman and documented with Swagger UI.",
-            "Applied Python and Pandas for data cleaning, transformation, and feature engineering, including a pipeline that improved predictive workflows within a microservices framework.",
+            "Applied Python and Pandas for data cleaning, transformation, and feature engineering, including a pipeline that improved predictive workflows within a microservices architecture.",
             "Collaborated with UI/UX and frontend teams to take a dashboard from wireframe to production."
           ]
         }
@@ -58,6 +58,7 @@
           "workRef": "hisalon",
           "bullets": [
             "Main contributor to HiSalon, the company's multi-tenant salon management SaaS, and contributed to HiPay and HiChat, mostly through an agent-driven workflow with Claude Code.",
+            "Maintained GitHub Actions CI/CD: pull request test gates, AWS deploys, and Fastlane iOS releases.",
             "On HiPay, a payment gateway, fixed the checkout and SDK for Apple Pay, BENEFIT, and Flooss.",
             "On HiChat, a customer experience platform, fixed WhatsApp campaigns and phone number handling, and let agents reopen expired chats with approved templates."
           ]
