@@ -240,7 +240,16 @@
   font-weight: 600;
   transition: background-color 160ms cubic-bezier(0.25, 1, 0.5, 1);
 }
-.cv-button:hover { background: var(--accent-strong); }
+/* The colour is restated because base.css's a:hover (0,1,1) outranks
+   .cv-button (0,1,0) and turned the label --accent-strong on an
+   --accent-strong fill: the button went blank under the pointer. Hover only
+   where the device can hover: a phone keeps :hover after a tap, which left
+   the button stuck blue; there :active gives the press its feedback. */
+.cv-button:hover { color: var(--ground); }
+@media (hover: hover) {
+  .cv-button:hover { background: var(--accent-strong); }
+}
+.cv-button:active { background: var(--accent-strong); color: var(--ground); }
 .cv-button svg { width: 1.05rem; height: 1.05rem; flex: none; }
 .cv-button span { white-space: nowrap; }
 @media (prefers-reduced-motion: reduce) { .cv-button { transition: none; } }
