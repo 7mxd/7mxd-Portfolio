@@ -46,17 +46,23 @@ const kb = (n) => `${(n / 1024).toFixed(1)}KB`;
 // 2026, 20 bytes under 100, so the Apple and Android marks for the app pills
 // could not land without deleting comments elsewhere. At 110KB it is generous
 // again; the extra 10KB costs a phone well under a millisecond to parse.
-const WIRE_BUDGET = 40 * 1024;
-const PARSE_CEILING = 110 * 1024;
+//
+// Both moved again on 29 October 2026, by Ahmed's decision. The hero's Download
+// CV with its git-dated caption took main to 39.4KB, and the organisation pills
+// (logo, name, span set into the border, built from the timeline's own data)
+// came to 41.4KB gzipped and about 112KB parsed. 44KB and 120KB put headroom
+// back for the next change rather than making it pay by deleting comments.
+const WIRE_BUDGET = 44 * 1024;
+const PARSE_CEILING = 120 * 1024;
 
-test('CSS plus JS stays inside the 40KB transfer budget', () => {
+test('CSS plus JS stays inside the 44KB transfer budget', () => {
   assert.ok(
     wireBytes <= WIRE_BUDGET,
     `${kb(wireBytes)} gzipped of ${kb(WIRE_BUDGET)} — this is what a reader downloads`,
   );
 });
 
-test('CSS plus JS stays inside the 110KB parse ceiling', () => {
+test('CSS plus JS stays inside the 120KB parse ceiling', () => {
   // Compression hides growth from the transfer budget, so this catches the case
   // the wire number cannot: a lot of highly repetitive code that gzips away to
   // nothing but still has to be read and applied.

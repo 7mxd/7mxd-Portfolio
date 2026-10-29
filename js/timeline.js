@@ -171,3 +171,44 @@ export function buildTimeline({ experience = {}, education = {}, projects = {}, 
     .sort((a, b) => b[0] - a[0])
     .map(([year, entries]) => ({ year, entries }));
 }
+
+/** "Apr 2026", "2018" for a year-only date, "Present" passed through. */
+function spanLabel(value) {
+  const text = String(value ?? '').trim();
+  if (/^present$/i.test(text)) return 'Present';
+  const match = DATE.exec(text);
+  if (!match) return '';
+  return match[3] ? `${MONTHS[Number(match[3]) - 1]} ${match[1]}` : match[1];
+}
+
+/** The hero's organisation pills: every company and institution ticked "Show
+ *  in hero", newest first, with its span read from the same dates the
+ *  timeline uses, so the two can never disagree. A company's span runs from
+ *  its earliest role to its latest, and is open ("Present") if any role is.
+ *  YYYY-MM strings compare correctly as text, which is all the min/max needs. */
+export function heroOrgs({ experience = {}, education = {} } = {}) {
+  const orgs = [];
+  for (const company of experience.items ?? []) {
+    if (!company.hero) continue;
+    const roles = company.roles ?? [];
+    const starts = roles.map((r) => String(r.startDate ?? '')).filter((d) => DATE.test(d)).sort();
+    const open = roles.some((r) => /^present$/i.test(String(r.endDate ?? '').trim()));
+    const ends = roles.map((r) => String(r.endDate ?? '')).filter((d) => DATE.test(d)).sort();
+    orgs.push({ name: company.shortName || company.company, logo: company.logo ?? null,
+      start: starts[0] ?? '', end: open ? 'Present' : ends.at(-1) ?? '' });
+  }
+  for (const item of education.items ?? []) {
+    if (!item.hero) continue;
+    orgs.push({ name: item.institution, logo: item.logo ?? null,
+      start: String(item.startDate ?? ''), end: String(item.endDate ?? '') });
+  }
+  const rank = (o) => (o.end === 'Present' ? '9999' : o.end);
+  return orgs
+    .sort((a, b) => (rank(a) === rank(b) ? 0 : rank(a) > rank(b) ? -1 : 1))
+    .map((o) => {
+      const from = spanLabel(o.start);
+      const to = spanLabel(o.end);
+      return { name: o.name, logo: o.logo, start: o.start, end: o.end,
+        span: from && to ? `${from} – ${to}` : from || to };
+    });
+}

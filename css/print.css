@@ -73,7 +73,15 @@ main { max-width: none; padding: 0; }
    set as text beside them, and a dark-ink mark prints as a smudge that costs
    toner and buys nothing. */
 .gallery,
-.entry-logo { display: none !important; }
+.entry-logo,
+.org-logo { display: none !important; }
+
+/* The span sits on the pill's border by painting the pill's fill over it, and
+   printers commonly drop backgrounds, which would strike the line through the
+   date. On paper the organisation reads as plain text: "Saal.ai Mar 2024 – Sep 2026". */
+.org-pill { display: inline-flex; gap: 0.35em; border: 0; padding: 0; background: none; }
+.org-pill time { height: auto; transform: none; font-size: inherit; }
+.org-pill time span { background: none; margin: 0; padding: 0; }
 
 .work + .work { margin-top: 0.5cm; padding-top: 0.5cm; }
 

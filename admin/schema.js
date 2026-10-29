@@ -51,11 +51,14 @@ export const COLLECTIONS = [
     { name:'nameArabic', label:'Arabic name', type:'string', required:true },
     { name:'role', label:'Role line', type:'string', required:true },
     { name:'tagline', label:'Tagline', type:'text' },
-    // Rendered as the pill row under the tagline. `lang` is optional and only
-    // meaningful as 'ar', which switches the pill to the Arabic face and RTL.
-    { name:'pills', label:'Topic pills', type:'list', fields:[
+    // The hero's pill rows. Organisations are not listed here: they come from
+    // the Education and Experience entries ticked "Show in hero", with dates
+    // from their own start/end, so the hero and the timeline cannot disagree.
+    // `lang` is optional and only meaningful as 'ar' (Arabic face, RTL).
+    { name:'fields', label:'Field pills', type:'list', fields:[
       { name:'label', label:'Label', type:'string', required:true },
       { name:'lang', label:'Language (ar for Arabic)', type:'string' } ] },
+    { name:'tools', label:'Tool pills', type:'list', itemField:{ name:'tool', label:'Tool', type:'string' } },
     { name:'status', label:'Availability line', type:'text' },
     { name:'location', label:'Location', type:'string' },
     { name:'portrait', label:'Hero portrait', type:'object', fields: imageFields },
@@ -96,6 +99,7 @@ export const COLLECTIONS = [
   { name:'education', file:'data/education.json', label:'Education', kind:'list', listKey:'items', itemFields:[
     { name:'id', label:'Id (anchor and timeline key)', type:'string', required:true },
     { name:'institution', label:'Institution', type:'string', required:true },
+    { name:'hero', label:'Show in hero', type:'boolean' },
     { name:'degree', label:'Degree', type:'string' },
     { name:'location', label:'Location', type:'string' },
     logoField,
@@ -109,6 +113,8 @@ export const COLLECTIONS = [
 
   { name:'experience', file:'data/experience.json', label:'Experience', kind:'list', listKey:'items', itemFields:[
     { name:'company', label:'Company', type:'string', required:true },
+    { name:'shortName', label:'Short name (hero pill)', type:'string' },
+    { name:'hero', label:'Show in hero', type:'boolean' },
     { name:'location', label:'Location', type:'string' },
     logoField,
     { name:'roles', label:'Roles', type:'list', fields:[

@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { buildTimeline } from '../js/timeline.js';
+import { buildTimeline, heroOrgs } from '../js/timeline.js';
 
 const load = (n) => JSON.parse(readFileSync(new URL(`../data/${n}.json`, import.meta.url), 'utf8'));
 const REAL = {
@@ -211,4 +211,35 @@ test('source.id points to a record that actually exists in the named collection'
       `entry ${e.id}: source ${e.source.collection}/${e.source.id} does not exist in the data`
     );
   }
+});
+
+// The hero's organisation pills are built from the same entries as the
+// timeline, so their spans cannot drift from it.
+test('heroOrgs takes only entries ticked for the hero, newest first, with spans from their own dates', () => {
+  const orgs = heroOrgs({
+    experience: { items: [
+      { company: 'Old Co', hero: true, roles: [{ startDate: '2020-01', endDate: '2021-06' }] },
+      { company: 'Acme W.L.L.', shortName: 'Acme', hero: true, logo: { default: 'a.png' },
+        roles: [{ startDate: '2024-09', endDate: 'Present' }, { startDate: '2024-03', endDate: '2024-09' }] },
+      { company: 'Hidden', hero: false, roles: [{ startDate: '2025-01', endDate: 'Present' }] },
+    ] },
+    education: { items: [
+      { institution: 'Uni', hero: true, startDate: '2018-08', endDate: '2023-05' },
+      { institution: 'School', hero: true, startDate: '2015', endDate: '2018' },
+    ] },
+  });
+  assert.deepEqual(orgs.map((o) => [o.name, o.span]), [
+    ['Acme', 'Mar 2024 – Present'],
+    ['Uni', 'Aug 2018 – May 2023'],
+    ['Old Co', 'Jan 2020 – Jun 2021'],
+    ['School', '2015 – 2018'],
+  ]);
+  assert.equal(orgs[0].logo.default, 'a.png');
+  assert.equal(orgs[0].start, '2024-03');
+});
+
+test('the real data puts Join Future, Saal.ai and Khalifa University in the hero', () => {
+  const orgs = heroOrgs(REAL);
+  assert.deepEqual(orgs.map((o) => o.name), ['Join Future', 'Saal.ai', 'Khalifa University']);
+  assert.match(orgs[0].span, / – Present$/);
 });
