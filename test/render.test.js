@@ -49,7 +49,6 @@ function buildFixtureDoc() {
   const hooks = {
     '[data-nav-name]': new FakeElement(),
     '[data-nav-links]': new FakeElement(),
-    '[data-cv-link]': new FakeElement(),
     '[data-footer-year]': new FakeElement(),
     '[data-footer-name]': new FakeElement(),
   };
@@ -492,9 +491,10 @@ test('the availability line renders as its own undecorated element', () => {
   assert.ok(DATA.profile.status, 'profile.status is missing from the data');
   assert.match(hero, /<p class="hero-status">/);
   assert.ok(hero.includes(DATA.profile.status));
-  // It sits between the pills and the contact links that answer it.
-  assert.ok(hero.indexOf('hero-status') > hero.indexOf('hero-pills'), 'status precedes the pills');
-  assert.ok(hero.indexOf('hero-status') < hero.indexOf('hero-links'), 'status follows the contact links');
+  // It sits above the pills, so the ask and the CV that answers it land on a
+  // phone's first screen; the pills and contact links follow as support.
+  assert.ok(hero.indexOf('hero-status') < hero.indexOf('hero-pills'), 'status precedes the pills');
+  assert.ok(hero.indexOf('hero-status') < hero.indexOf('hero-links'), 'status precedes the contact links');
 });
 
 // The CV answers the ask, so it sits directly under it, with the slots
@@ -507,6 +507,7 @@ test('the hero carries the CV download, with size and date slots, after the stat
   assert.match(hero, /data-cv-size hidden/);
   assert.match(hero, /data-cv-updated hidden[^>]*>[^<]*Updated <time>/);
   assert.ok(hero.indexOf('hero-cv') > hero.indexOf('hero-status'), 'CV follows the status line');
+  assert.ok(hero.indexOf('hero-cv') < hero.indexOf('hero-pills'), 'CV precedes the pills');
   assert.ok(hero.indexOf('hero-cv') < hero.indexOf('hero-links'), 'CV precedes the contact links');
 });
 

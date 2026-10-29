@@ -156,7 +156,7 @@ const DOWNLOAD_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" s
 function heroCv(cv) {
   if (!cv?.path) return '';
   return `<div class="hero-cv">
-    <a class="cv-button cv-button-primary" href="${escapeHtml(cv.path)}" download="${escapeHtml(cv.downloadName ?? '')}">${DOWNLOAD_ICON}<span>Download CV</span></a>
+    <a class="cv-button" href="${escapeHtml(cv.path)}" download="${escapeHtml(cv.downloadName ?? '')}">${DOWNLOAD_ICON}<span>Download CV</span></a>
     <p class="hero-cv-meta">PDF<span data-cv-size hidden> · <span></span></span><span data-cv-updated hidden> · Updated <time></time></span></p>
   </div>`;
 }
@@ -206,9 +206,9 @@ ${portrait}
   <p class="hero-name-ar" lang="ar" dir="rtl">${escapeHtml(profile.nameArabic)}</p>
   <p class="hero-role">${escapeHtml(profile.role)}</p>
   <p class="hero-tagline">${escapeHtml(profile.tagline)}</p>
-  ${pills}
   ${status}
   ${heroCv(cv)}
+  ${pills}
   <p class="hero-links">${links}</p>
 </div>`;
 }
@@ -492,12 +492,6 @@ function renderChrome(doc, data) {
       .filter((item) => data.settings.sections?.[item.id]?.enabled !== false)
       .map((item) => `<li><a href="#${escapeHtml(item.id)}">${escapeHtml(item.label)}</a></li>`)
       .join('');
-  }
-
-  const cv = doc.querySelector('[data-cv-link]');
-  if (cv) {
-    cv.setAttribute('href', data.settings.cv.path);
-    cv.setAttribute('download', data.settings.cv.downloadName);
   }
 
   const year = doc.querySelector('[data-footer-year]');
