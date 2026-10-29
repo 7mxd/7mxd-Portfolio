@@ -107,12 +107,13 @@
 
 .nav-menu-toggle { display: none; }
 
-/* The toggle is a sibling of .nav-links in the markup so it survives the mobile
-   drawer collapse. Above 46rem it is reordered back to the right of the CV
-   button, which keeps the bar reading mark ... links, CV, theme. */
+/* The CV and theme controls are siblings of .nav-links in the markup so they
+   survive the mobile drawer collapse. Above 46rem they are reordered back to
+   the right of the links, which keeps the bar reading mark ... links, CV, theme. */
 .nav-mark { order: 1; }
 .nav-links { order: 2; }
-.theme-toggle { order: 3; margin-left: var(--space-3); }
+.nav-actions { order: 3; }
+.theme-toggle { order: 4; margin-left: var(--space-3); }
 
 main {
   max-width: var(--measure-wide);
@@ -162,9 +163,26 @@ main {
   /* Theme first, then hamburger, then the drawer on its own line. A preference
      control that costs two taps because it sits inside a drawer is a control
      people stop using. */
-  .theme-toggle { order: 2; margin-left: auto; }
-  .nav-menu-toggle { order: 3; margin-left: var(--space-2); }
-  .nav-links { order: 4; }
+  .site-nav { gap: var(--space-2); }
+  /* A zero basis lets the wordmark give up width before the controls wrap to a
+     second row. */
+  .nav-mark { flex: 1 1 0; min-width: 0; }
+  .nav-mark-name { overflow: hidden; text-overflow: ellipsis; }
+  .nav-actions { order: 2; }
+  .theme-toggle { order: 3; margin-left: 0; }
+  .nav-menu-toggle { order: 4; }
+  .nav-links { order: 5; }
+
+  /* The CV stays in the bar at every width, so it shortens to "CV" here. The
+     verb is clipped rather than removed so the accessible name stays whole. */
+  .cv-button { padding: var(--space-2) var(--space-3); height: 2.25rem; }
+  .cv-verb {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 
   .nav-menu-toggle {
     display: inline-flex;
@@ -202,4 +220,15 @@ main {
      js/main.js has no resize handler to clear the class if the viewport
      grows past it while open, so the rule must not apply above 46rem. */
   body.nav-open { overflow: hidden; }
+}
+
+/* Under ~390px (iPhone SE, small Androids) mark, CV, theme and menu cannot all
+   fit beside the full name. The logo keeps the bar's identity, the hero's first
+   line is the name, and a clipped name keeps the link's accessible name. */
+@media (max-width: 24.25rem) {
+  .nav-mark-name {
+    position: absolute;
+    width: 1px; height: 1px;
+    clip-path: inset(50%);
+  }
 }

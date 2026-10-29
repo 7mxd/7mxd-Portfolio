@@ -50,10 +50,29 @@ function markScrollRows(doc) {
   }
 }
 
+/** Footer "Last updated": the date of the newest commit on main, so it can
+ *  never go stale the way a hand-kept date would. Public API, no token; on any
+ *  failure (offline, rate limit) the line simply stays hidden. */
+async function showLastUpdated(doc) {
+  const slot = doc.querySelector('[data-last-updated]');
+  if (!slot) return;
+  try {
+    const res = await fetch('https://api.github.com/repos/7mxd/7mxd-Portfolio/commits?sha=main&per_page=1');
+    if (!res.ok) return;
+    const iso = (await res.json())[0]?.commit?.committer?.date;
+    if (!iso) return;
+    const time = slot.querySelector('time');
+    time.dateTime = iso.slice(0, 10);
+    time.textContent = new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    slot.hidden = false;
+  } catch { /* leave it hidden */ }
+}
+
 async function boot() {
   initTheme(document, window.localStorage, window.matchMedia('(prefers-color-scheme: dark)'));
   trackKeyboardUse(document);
   initMobileNav(document);
+  showLastUpdated(document);
 
   try {
     const data = await loadSiteData();

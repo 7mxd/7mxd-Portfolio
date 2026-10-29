@@ -124,16 +124,20 @@
     </button>
     <div class="nav-links" id="nav-links">
       <ul class="nav-list" data-nav-links></ul>
-      <div class="nav-actions">
-        <a class="cv-button" data-cv-link href="#" download>
-          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-          <span>Download CV</span>
-        </a>
-      </div>
+    </div>
+    <!-- Outside .nav-links for the same reason as the theme toggle below: the CV
+         is the one thing a recruiter came for, so it never hides in the drawer.
+         Below 46rem the label shortens to "CV"; the hidden word keeps the
+         accessible name "Download CV". -->
+    <div class="nav-actions">
+      <a class="cv-button" data-cv-link href="#" download>
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        <span><span class="cv-verb">Download </span>CV</span>
+      </a>
     </div>
     <!-- Outside .nav-links on purpose. On a phone the links collapse into a
          drawer, and a theme toggle buried in a drawer costs two taps for a
@@ -170,7 +174,7 @@
 </main>
 
 <footer class="site-footer">
-  <p>&copy; <span data-footer-year></span> <span data-footer-name></span></p>
+  <p>&copy; <span data-footer-year></span> <span data-footer-name></span><span data-last-updated hidden> · Last updated <time></time></span></p>
 </footer>
 </body>
 </html>
