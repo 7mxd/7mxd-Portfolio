@@ -46,6 +46,14 @@ def main():
         total_before += src.stat().st_size
 
         im = Image.open(src).convert("RGBA")
+        # Trim only fully transparent edges. The Saal.ai wordmark arrived on a
+        # square canvas, 60% of it empty, which drew it at a third of its height
+        # in the hero's organisation pills (sized by height). Transparent pixels
+        # are not artwork; the timeline's square slot uses object-fit: contain,
+        # so it draws trimmed marks exactly as before.
+        bbox = im.getchannel("A").getbbox()
+        if bbox:
+            im = im.crop(bbox)
         # Fit inside the box rather than cropping: these are third-party marks
         # and their own margins are part of the artwork.
         im.thumbnail((SIZE, SIZE), Image.LANCZOS)

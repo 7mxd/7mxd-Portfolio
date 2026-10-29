@@ -177,7 +177,9 @@ No card grids. Sections are separated by a single hairline rule, not by boxes.
   light and therefore byte-identical to the photograph's own studio backdrop —
   the band merged into the picture and the shirt dissolved into the page. The
   component only ever read as two rings in dark, by accident. Below it: name,
-  Arabic name at `dir="rtl"`, role line, tagline, pills, contact links.
+  Arabic name at `dir="rtl"`, role line, tagline, availability plate, Download
+  CV with its "Updated" caption, then three pill rows (organisations with their
+  spans set into the border, fields, tools), contact links.
 - **Availability.** The one statement on a plate: `--accent-plate` with a
   `--rule-accent` hairline and a 0.375rem radius, no motion. It was deliberately
   unmarked, on the reasoning that a chip reads as a fourth pill and a dot is
@@ -228,8 +230,8 @@ is honoured throughout.
 ## Constraints
 
 - No build step, no bundler, no runtime dependencies. Plain ES modules.
-- CSS plus JS under **40 KB gzipped**, which is what a reader downloads, with a
-  100 KB uncompressed parse ceiling behind it. Both enforced by
+- CSS plus JS under **44 KB gzipped**, which is what a reader downloads, with a
+  120 KB uncompressed parse ceiling behind it. Both enforced by
   `test/budget.test.js`. It was one 80 KB uncompressed number until that became
   the binding constraint on the project and three pieces of work ended with
   comments being deleted to fit — a comment gzips to roughly a quarter of

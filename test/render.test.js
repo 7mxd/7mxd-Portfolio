@@ -7,6 +7,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { validateSiteData, normalizeSiteImages } from '../js/data.js';
+import { escapeHtml } from '../js/blocks.js';
 import { buildTimeline } from '../js/timeline.js';
 import { renderAll, kindLabel, KIND_LABELS } from '../js/render.js';
 
@@ -93,7 +94,7 @@ function allSectionHtml(sections) {
  *  no intrinsic dimensions. Strip them before auditing the photographs, and
  *  test them on their own terms below. */
 function withoutOrgLogos(html) {
-  return html.replace(/<span class="entry-logo[^"]*">.*?<\/span>/gs, '');
+  return html.replace(/<span class="(?:entry|org)-logo[^"]*">.*?<\/span>/gs, '');
 }
 
 test('every section renders non-empty HTML', () => {
@@ -508,6 +509,21 @@ test('the hero carries the CV download, with its date slot, after the status lin
   assert.ok(hero.indexOf('hero-cv') > hero.indexOf('hero-status'), 'CV follows the status line');
   assert.ok(hero.indexOf('hero-cv') < hero.indexOf('hero-pills'), 'CV precedes the pills');
   assert.ok(hero.indexOf('hero-cv') < hero.indexOf('hero-links'), 'CV precedes the contact links');
+});
+
+// Each pill row holds one kind of fact, so no row needs a "·" to separate two
+// different things. Organisations carry their span inside the pill as a <time>.
+test('the hero pills are three rows: organisations with spans, fields, tools', () => {
+  const hero = renderFixture().sections.get('hero').innerHTML;
+  const orgs = hero.indexOf('class="hero-orgs"');
+  const fields = hero.indexOf('<ul class="hero-pills">');
+  const tools = hero.indexOf('class="hero-pills hero-tools"');
+  assert.ok(orgs > hero.indexOf('hero-cv') && orgs < fields && fields < tools, 'rows run CV, orgs, fields, tools');
+  assert.match(hero, /<li class="org-pill"><span class="org-name"><span class="org-logo[^"]*">.*?<\/span>Join Future<\/span><time datetime="2026-04"><span>Apr 2026 – Present<\/span><\/time><\/li>/);
+  assert.match(hero, /Saal\.ai<\/span><time datetime="2024-03"><span>Mar 2024 – Sep 2026</);
+  assert.ok(!/<li[^>]*>[^<]* · [^<]*<\/li>/.test(hero), 'a pill still joins two facts with " · "');
+  for (const f of DATA.profile.fields) assert.ok(hero.includes(escapeHtml(f.label)), `field pill "${f.label}" missing`);
+  for (const t of DATA.profile.tools) assert.ok(hero.includes(`<li>${t}</li>`), `tool pill "${t}" missing`);
 });
 
 test('About renders one paragraph per blank-line-separated block', () => {

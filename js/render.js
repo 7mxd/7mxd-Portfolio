@@ -1,4 +1,5 @@
 import { escapeHtml, renderBlocks, imageMarkup, srcsetAttr } from './blocks.js';
+import { heroOrgs } from './timeline.js';
 
 /** How wide a gallery image actually renders, per context and per slot.
  *
@@ -161,7 +162,39 @@ function heroCv(cv) {
   </div>`;
 }
 
-function renderHero(doc, profile, cv) {
+/** One mark inside an organisation pill. Same two-<img> light/dark swap as the
+ *  timeline's orgLogoMarkup (see the comment there for why not <picture>); a
+ *  single-variant mark sits on --logo-ground, which is transparent in light
+ *  and a pale plate in dark, where a navy mark would otherwise vanish. */
+function orgPillLogo(logo) {
+  if (!logo) return '';
+  if (logo.light && logo.dark) {
+    return `<span class="org-logo"><img class="entry-logo-light" src="${escapeHtml(logo.light)}" alt="" decoding="async">`
+      + `<img class="entry-logo-dark" src="${escapeHtml(logo.dark)}" alt="" decoding="async"></span>`;
+  }
+  const only = logo.default || logo.light || logo.dark;
+  return only ? `<span class="org-logo is-plated"><img src="${escapeHtml(only)}" alt="" decoding="async"></span>` : '';
+}
+
+/** Where he has been, as pills with the span set into the bottom border. The
+ *  span is the pill's own caption, so it reads as belonging to that place and
+ *  not as a separate fact; a <time> carries the machine-readable start. */
+function heroOrgsMarkup(orgs) {
+  if (!orgs.length) return '';
+  return `<ul class="hero-orgs">${orgs.map((o) => `<li class="org-pill">`
+    + `<span class="org-name">${orgPillLogo(o.logo)}${escapeHtml(o.name)}</span>`
+    + (o.span ? `<time datetime="${escapeHtml(o.start)}"><span>${escapeHtml(o.span)}</span></time>` : '')
+    + `</li>`).join('')}</ul>`;
+}
+
+function pillItems(items) {
+  return items.map((p) => {
+    const attrs = p.lang === 'ar' ? ' lang="ar" dir="rtl"' : '';
+    return `<li${attrs}>${escapeHtml(p.label)}</li>`;
+  }).join('');
+}
+
+function renderHero(doc, profile, cv, orgs = []) {
   const links = [
     iconLink(`mailto:${profile.contact.email}`, profile.contact.email),
     profile.contact.linkedin ? iconLink(profile.contact.linkedin.url, profile.contact.linkedin.label) : '',
@@ -180,16 +213,15 @@ function renderHero(doc, profile, cv) {
     : '';
 
   // Pills place a scanner in three seconds without asking them to read a
-  // sentence. They carry no tense, which is why the degree belongs here rather
-  // than in the tagline (he graduated in 2023) and why the Saal.ai pill is a
-  // closed date range: it is already true, and it stays true after the contract
-  // ends without anyone editing anything.
-  const pills = (profile.pills ?? []).length
-    ? `<ul class="hero-pills">${profile.pills.map((p) => {
-        const attrs = p.lang === 'ar' ? ' lang="ar" dir="rtl"' : '';
-        return `<li${attrs}>${escapeHtml(p.label)}</li>`;
-      }).join('')}</ul>`
-    : '';
+  // sentence. They used to be one row of "x · y" labels where the dot meant
+  // something different every time (employer and dates, degree and school, a
+  // list, city and country), so each needed decoding. Now each row holds one
+  // kind of fact: places (with their spans), fields, then tools.
+  const fields = profile.fields ?? [];
+  const tools = (profile.tools ?? []).map((label) => ({ label }));
+  const pills = heroOrgsMarkup(orgs)
+    + (fields.length ? `<ul class="hero-pills">${pillItems(fields)}</ul>` : '')
+    + (tools.length ? `<ul class="hero-pills hero-tools">${pillItems(tools)}</ul>` : '');
 
   // The ask, as its own element. It was the fourth sentence of an eleven-line
   // About paragraph, which is no place for the one thing the page wants the
@@ -510,7 +542,7 @@ function applyVisibility(doc, settings) {
 
 export function renderAll(doc, data, timeline) {
   renderChrome(doc, data);
-  renderHero(doc, data.profile, data.settings.cv);
+  renderHero(doc, data.profile, data.settings.cv, heroOrgs(data));
   renderAbout(doc, data.summary);
   renderPath(doc, timeline);
   renderNumbers(doc, data.metrics);

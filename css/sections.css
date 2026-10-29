@@ -106,6 +106,56 @@
   font-size: var(--text-sm);
   padding-block: 0.15em;
 }
+/* Three rows, one kind of fact each: places, fields, tools. */
+.hero-orgs + .hero-pills { margin-top: 0; margin-bottom: var(--space-2); }
+.hero-pills + .hero-tools { margin-top: 0; }
+
+/* Organisation pills: the place as a pill, its span set into the bottom border
+   like a label on a rule. The pill is a grid so the zero-height date row still
+   counts toward its width, and the date's side margin keeps a run of border
+   visible past the rounded ends on both sides; without that the date ate the
+   whole straight edge and read as cramped text inside the pill. */
+.hero-orgs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-3);
+  margin: var(--space-4) 0 var(--space-6);
+}
+.org-pill {
+  --org-pb: 0.55rem;
+  display: inline-grid;
+  justify-items: center;
+  font-family: var(--font-meta);
+  font-size: var(--text-xs);
+  line-height: 1.4;
+  color: var(--accent);
+  background: var(--ground-raised);
+  border: var(--rule-width) solid var(--rule-accent);
+  border-radius: 999px;
+  padding: 0.35em 0.8em var(--org-pb) 0.5em;
+}
+.org-name { display: inline-flex; align-items: center; gap: 0.5em; }
+.org-logo { display: inline-flex; align-items: center; }
+.org-logo img { height: 1.15rem; width: auto; max-width: 2.25rem; object-fit: contain; }
+.org-logo.is-plated { padding: 1px; border-radius: 3px; background: var(--logo-ground); }
+.org-pill time {
+  height: 0;
+  font-size: 0.65rem;
+  line-height: 1;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  /* Centre the text on the border's outer edge. */
+  transform: translateY(calc(var(--org-pb) + var(--rule-width) - 0.5em));
+}
+/* Top half takes the pill's own fill, which hides the border behind the text;
+   the bottom half is transparent, so the page shows through below the line. */
+.org-pill time span {
+  display: inline-block;
+  padding: 0 0.45em;
+  margin-inline: 0.7rem;
+  background: linear-gradient(var(--ground-raised) 50%, transparent 50%);
+}
 
 /* The ask, on a plate. This line was deliberately unmarked for a while — the
    reasoning being that a chip reads as a fourth pill and a dot is LinkedIn's

@@ -3,6 +3,7 @@
     {
       "id": "khalifa-bsc",
       "institution": "Khalifa University",
+      "hero": true,
       "degree": "BSc in Applied Mathematics and Statistics",
       "location": "Abu Dhabi, UAE",
       "logo": {
@@ -45,6 +46,7 @@
     {
       "id": "al-nahda-diploma",
       "institution": "Al Nahda National Schools",
+      "hero": false,
       "degree": "High School Diploma",
       "location": "Abu Dhabi, UAE",
       "logo": {

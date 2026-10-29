@@ -2,6 +2,8 @@
   "items": [
     {
       "company": "Saal.ai",
+      "shortName": "Saal.ai",
+      "hero": true,
       "location": "Abu Dhabi, UAE",
       "logo": {
         "default": "assets/logos/saal-light.png",
@@ -38,6 +40,8 @@
     },
     {
       "company": "Join Future W.L.L.",
+      "shortName": "Join Future",
+      "hero": true,
       "location": "Bahrain, remote",
       "logo": {
         "default": "assets/logos/join-future.png",
@@ -62,6 +66,8 @@
     },
     {
       "company": "Daman, National Health Insurance Company",
+      "shortName": "Daman",
+      "hero": false,
       "location": "Abu Dhabi, UAE",
       "logo": {
         "default": "assets/logos/daman.png"

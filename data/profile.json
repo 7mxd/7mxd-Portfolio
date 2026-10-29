@@ -3,29 +3,22 @@
   "nameArabic": "أحمد علوي رضي",
   "role": "Data scientist in Abu Dhabi",
   "tagline": "I build data pipelines and the analysis that runs on top of them, and full stack web and mobile products end to end.",
-  "pills": [
+  "fields": [
     {
-      "label": "Join Future · 2026–present"
+      "label": "Applied Mathematics and Statistics"
     },
     {
-      "label": "Saal.ai · 2024–2026"
+      "label": "Data Science & Full Stack"
     },
     {
-      "label": "Data Science · Full Stack"
-    },
-    {
-      "label": "Applied Mathematics · Khalifa University"
-    },
-    {
-      "label": "Python · TypeScript · Flutter"
-    },
-    {
-      "label": "Abu Dhabi · UAE"
-    },
-    {
-      "label": "علوم البيانات",
+      "label": "علوم البيانات وتطوير فول ستاك",
       "lang": "ar"
     }
+  ],
+  "tools": [
+    "Python",
+    "TypeScript",
+    "Flutter"
   ],
   "status": "Open to Data Scientist, Quantitative Developer and Data Analyst roles.",
   "location": "Abu Dhabi, United Arab Emirates",
