@@ -50,14 +50,15 @@ function markScrollRows(doc) {
   }
 }
 
-/** Footer "Last updated": the date of the newest commit on main, so it can
- *  never go stale the way a hand-kept date would. Public API, no token; on any
+/** Footer "CV updated": the date of the newest commit on main that touched the
+ *  CV file settings.json points at, so it moves with every new CV and can never
+ *  go stale the way a hand-kept date would. Public API, no token; on any
  *  failure (offline, rate limit) the line simply stays hidden. */
-async function showLastUpdated(doc) {
-  const slot = doc.querySelector('[data-last-updated]');
-  if (!slot) return;
+async function showCvUpdated(doc, cvPath) {
+  const slot = doc.querySelector('[data-cv-updated]');
+  if (!slot || !cvPath) return;
   try {
-    const res = await fetch('https://api.github.com/repos/7mxd/7mxd-Portfolio/commits?sha=main&per_page=1');
+    const res = await fetch(`https://api.github.com/repos/7mxd/7mxd-Portfolio/commits?sha=main&per_page=1&path=${encodeURIComponent(cvPath)}`);
     if (!res.ok) return;
     const iso = (await res.json())[0]?.commit?.committer?.date;
     if (!iso) return;
@@ -72,11 +73,11 @@ async function boot() {
   initTheme(document, window.localStorage, window.matchMedia('(prefers-color-scheme: dark)'));
   trackKeyboardUse(document);
   initMobileNav(document);
-  showLastUpdated(document);
 
   try {
     const data = await loadSiteData();
     renderAll(document, data, buildTimeline(data));
+    showCvUpdated(document, data.settings.cv.path);
     markScrollRows(document);
   } catch (error) {
     console.error(error);
