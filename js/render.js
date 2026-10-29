@@ -150,14 +150,14 @@ function gallery(images, context) {
 const DOWNLOAD_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>';
 
 /** The CV as the answer to the status line above it: the primary button, and
- *  beside it what a reader wants to know before tapping, which is the format,
- *  the size, and how fresh it is. Size and date are filled by js/main.js from
- *  the file itself and its git history, so neither can drift from the PDF. */
+ *  under it the one thing a reader wants to know before tapping, which is how
+ *  fresh it is. The date is filled by js/main.js from the file's git history,
+ *  so it cannot drift from the PDF. */
 function heroCv(cv) {
   if (!cv?.path) return '';
   return `<div class="hero-cv">
     <a class="cv-button" href="${escapeHtml(cv.path)}" download="${escapeHtml(cv.downloadName ?? '')}">${DOWNLOAD_ICON}<span>Download CV</span></a>
-    <p class="hero-cv-meta">PDF<span data-cv-size hidden> · <span></span></span><span data-cv-updated hidden> · Updated <time></time></span></p>
+    <p class="hero-cv-meta"><span data-cv-updated hidden>Updated <time></time></span></p>
   </div>`;
 }
 

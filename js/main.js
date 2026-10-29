@@ -50,24 +50,13 @@ function markScrollRows(doc) {
   }
 }
 
-/** The hero CV's "116 KB · Updated 14 Oct 2026". Size comes from a HEAD on the
- *  file itself; the date is the newest commit on main that touched the CV path
- *  settings.json names, so it moves with every new CV and can never go stale
- *  the way a hand-kept date would. Each part stays hidden if its source fails
- *  (offline, GitHub rate limit), leaving the plain "PDF" behind. */
-async function showCvMeta(doc, cvPath) {
-  if (!cvPath) return;
-  const sizeSlot = doc.querySelector('[data-cv-size]');
-  if (sizeSlot) {
-    fetch(cvPath, { method: 'HEAD' }).then((res) => {
-      const bytes = Number(res.headers.get('content-length'));
-      if (!res.ok || !bytes) return;
-      sizeSlot.querySelector('span').textContent = `${Math.max(1, Math.round(bytes / 1024))} KB`;
-      sizeSlot.hidden = false;
-    }).catch(() => {});
-  }
+/** "Updated 14 Oct 2026" under the hero's CV button: the newest commit on main
+ *  that touched the CV path settings.json names, so it moves with every new CV
+ *  and can never go stale the way a hand-kept date would. Public API, no token;
+ *  on any failure (offline, rate limit) the caption stays hidden. */
+async function showCvUpdated(doc, cvPath) {
   const slot = doc.querySelector('[data-cv-updated]');
-  if (!slot) return;
+  if (!slot || !cvPath) return;
   try {
     const res = await fetch(`https://api.github.com/repos/7mxd/7mxd-Portfolio/commits?sha=main&per_page=1&path=${encodeURIComponent(cvPath)}`);
     if (!res.ok) return;
@@ -75,7 +64,7 @@ async function showCvMeta(doc, cvPath) {
     if (!iso) return;
     const time = slot.querySelector('time');
     time.dateTime = iso.slice(0, 10);
-    time.textContent = new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    time.textContent = new Date(iso).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
     slot.hidden = false;
   } catch { /* leave it hidden */ }
 }
@@ -88,7 +77,7 @@ async function boot() {
   try {
     const data = await loadSiteData();
     renderAll(document, data, buildTimeline(data));
-    showCvMeta(document, data.settings.cv.path);
+    showCvUpdated(document, data.settings.cv.path);
     markScrollRows(document);
   } catch (error) {
     console.error(error);

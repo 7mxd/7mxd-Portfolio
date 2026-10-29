@@ -499,13 +499,12 @@ test('the availability line renders as its own undecorated element', () => {
 
 // The CV answers the ask, so it sits directly under it, with the slots
 // js/main.js fills with the file's size and the date of its last commit.
-test('the hero carries the CV download, with size and date slots, after the status line', () => {
+test('the hero carries the CV download, with its date slot, after the status line', () => {
   const hero = renderFixture().sections.get('hero').innerHTML;
   assert.match(hero, /<div class="hero-cv">/);
   assert.ok(hero.includes(`href="${DATA.settings.cv.path}"`), 'hero CV points at settings.cv.path');
   assert.ok(hero.includes(`download="${DATA.settings.cv.downloadName}"`));
-  assert.match(hero, /data-cv-size hidden/);
-  assert.match(hero, /data-cv-updated hidden[^>]*>[^<]*Updated <time>/);
+  assert.match(hero, /<span data-cv-updated hidden>Updated <time><\/time><\/span>/);
   assert.ok(hero.indexOf('hero-cv') > hero.indexOf('hero-status'), 'CV follows the status line');
   assert.ok(hero.indexOf('hero-cv') < hero.indexOf('hero-pills'), 'CV precedes the pills');
   assert.ok(hero.indexOf('hero-cv') < hero.indexOf('hero-links'), 'CV precedes the contact links');
