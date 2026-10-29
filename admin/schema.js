@@ -55,8 +55,11 @@ export const COLLECTIONS = [
     // the Education and Experience entries ticked "Show in hero", with dates
     // from their own start/end, so the hero and the timeline cannot disagree.
     // `lang` is optional and only meaningful as 'ar' (Arabic face, RTL).
+    // `caption` is optional: a short lead-in set into the pill's top border,
+    // read before the label ("Bachelor of Science in" + the field).
     { name:'fields', label:'Field pills', type:'list', fields:[
       { name:'label', label:'Label', type:'string', required:true },
+      { name:'caption', label:'Caption above (optional)', type:'string' },
       { name:'lang', label:'Language (ar for Arabic)', type:'string' } ] },
     { name:'tools', label:'Tool pills', type:'list', itemField:{ name:'tool', label:'Tool', type:'string' } },
     { name:'status', label:'Availability line', type:'text' },

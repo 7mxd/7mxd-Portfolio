@@ -93,15 +93,11 @@
       ]
     },
     {
-      "name": "Databases and cloud",
+      "name": "Databases",
       "type": "tags",
       "items": [
         {
           "name": "MongoDB",
-          "primary": true
-        },
-        {
-          "name": "Azure Blob Storage",
           "primary": true
         },
         {
@@ -111,9 +107,43 @@
         {
           "name": "Studio 3T",
           "primary": false
+        }
+      ]
+    },
+    {
+      "name": "Cloud and CI/CD",
+      "type": "tags",
+      "items": [
+        {
+          "name": "GitHub Actions",
+          "primary": true
+        },
+        {
+          "name": "Azure Blob Storage",
+          "primary": true
+        },
+        {
+          "name": "AWS (EC2, S3)",
+          "primary": false
         },
         {
           "name": "Docker",
+          "primary": false
+        },
+        {
+          "name": "Fastlane",
+          "primary": false
+        },
+        {
+          "name": "Jenkins",
+          "primary": false
+        },
+        {
+          "name": "Railway",
+          "primary": false
+        },
+        {
+          "name": "Vercel",
           "primary": false
         }
       ]
@@ -153,15 +183,15 @@
           "primary": true
         },
         {
-          "name": "VS Code",
+          "name": "Jira",
+          "primary": false
+        },
+        {
+          "name": "Linear",
           "primary": false
         },
         {
           "name": "Jupyter",
-          "primary": false
-        },
-        {
-          "name": "RStudio",
           "primary": false
         },
         {

@@ -5,7 +5,8 @@
   "tagline": "I build data pipelines and the analysis that runs on top of them, and full stack web and mobile products end to end.",
   "fields": [
     {
-      "label": "Applied Mathematics and Statistics"
+      "label": "Applied Mathematics and Statistics",
+      "caption": "Bachelor of Science in"
     },
     {
       "label": "Data Science & Full Stack"
